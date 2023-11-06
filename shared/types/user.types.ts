@@ -8,4 +8,6 @@ export interface IUser {
   subscription: [];
 
   products: [];
+
+  createdAt: string;
 }
