@@ -4,6 +4,7 @@ import AdminTableHeader from "./AdminTableHeader";
 import AdminTableItem from "./AdminTableItem";
 import { ITableItem } from "./admin-table.interface";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuth } from "@/hooks/useAuth";
 
 interface IAdminTable {
   tableItems: ITableItem[];
@@ -18,6 +19,8 @@ const AdminTable: FC<IAdminTable> = ({
   headerItems,
   removeHandler,
 }) => {
+  const { user } = useAuth();
+
   return (
     <div>
       <AdminTableHeader headerItems={headerItems} />
@@ -25,13 +28,15 @@ const AdminTable: FC<IAdminTable> = ({
       {isLoading ? (
         <Skeleton />
       ) : tableItems.length ? (
-        tableItems.map((tableItem) => (
-          <AdminTableItem
-            key={tableItem._id}
-            removeHandler={() => removeHandler(tableItem._id)}
-            tableItem={tableItem}
-          />
-        ))
+        tableItems
+          .filter((item) => !item.items.includes(user?.email!))
+          .map((tableItem) => (
+            <AdminTableItem
+              key={tableItem._id}
+              removeHandler={() => removeHandler(tableItem._id)}
+              tableItem={tableItem}
+            />
+          ))
       ) : (
         <div className="text-lg text-black text-opacity-60 text-center py-3">
           Elements not found!
