@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import AdminActions from "./AdminActions/AdminActions";
 import { IAdminTableItem } from "./admin-table.interface";
+import Image from "next/image";
 
 const AdminTableItem: FC<IAdminTableItem> = ({ removeHandler, tableItem }) => {
   return (
@@ -11,6 +12,22 @@ const AdminTableItem: FC<IAdminTableItem> = ({ removeHandler, tableItem }) => {
           {value}
         </div>
       ))}
+
+      {/* {tableItem.items.map((value, index) => {
+        if (value.split("/")[0] === "https:") {
+          return (
+            <div className=" flex-1 w-4 h-4">
+              <Image key={index} fill src={value} alt="Image" />
+            </div>
+          );
+        } else {
+          return (
+            <div key={index} className="flex-1">
+              {value}
+            </div>
+          );
+        }
+      })} */}
       <AdminActions editUrl={tableItem.editUrl} removeHandler={removeHandler} />
     </div>
   );

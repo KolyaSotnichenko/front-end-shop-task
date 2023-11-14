@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { useActions } from "@/hooks/useActions";
+import Link from "next/link";
 
 export function UserNav() {
   const { user } = useAuth();
@@ -40,6 +41,12 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/admin-dashboard/products">Products</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link href="/admin-dashboard/subscriptions">Subscriptions</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
         </DropdownMenuGroup>

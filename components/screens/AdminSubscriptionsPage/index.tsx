@@ -1,13 +1,14 @@
 "use client";
+
 import AdminHeader from "@/components/AdminHeader";
+import AdminTable from "@/components/AdminTable/AdminTable/AdminTable";
 import { UserNav } from "@/components/UserNav";
 import { FC } from "react";
-import { useUsers } from "./useUsers";
-import AdminTable from "@/components/AdminTable/AdminTable/AdminTable";
-import { useAuth } from "@/hooks/useAuth";
+import { useSubscriptions } from "./useSubscriptions";
 
-const AdminUsersPage: FC = () => {
-  const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useUsers();
+const AdminSubscriptionsPage: FC = () => {
+  const { searchTerm, isLoading, handleSearch, deleteAsync, data } =
+    useSubscriptions();
 
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
@@ -23,11 +24,11 @@ const AdminUsersPage: FC = () => {
       <AdminTable
         isLoading={isLoading}
         removeHandler={deleteAsync}
-        headerItems={["Email", "Admin", "Active"]}
+        headerItems={["Title", "Description", "Price"]}
         tableItems={data || []}
       />
     </div>
   );
 };
 
-export default AdminUsersPage;
+export default AdminSubscriptionsPage;
