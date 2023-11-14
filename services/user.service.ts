@@ -1,6 +1,6 @@
 // import { IProfileInput } from "@/components/screens/profile/profile.interface"
 import { getUsersUrl } from "@/config/api.config";
-import { IUser } from "@/shared/types/user.types";
+import { IUpdateUser, IUser } from "@/shared/types/user.types";
 import axios from "@/api/interceptors";
 
 export const UserService = {
@@ -22,9 +22,9 @@ export const UserService = {
     return axios.get<IUser>(getUsersUrl(`/${_id}`));
   },
 
-  // async updateUser(_id: string, data: IProfileInput) {
-  //     return axios.put<string>(getUsersUrl(`/${_id}`), data)
-  // },
+  async updateUser(_id: string, data: IUpdateUser) {
+    return axios.put<string>(getUsersUrl(`/${_id}`), data);
+  },
 
   // async updateProfile(data: IProfileInput){
   //     return axios.put<string>(getUsersUrl(`/profile`), data)

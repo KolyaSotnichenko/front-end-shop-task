@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <Header logo="Admin" homePage="/admin-dashboard" />
       {children}
     </div>

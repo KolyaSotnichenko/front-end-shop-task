@@ -16,6 +16,8 @@ const AdminProductsPage: FC = () => {
           searchTerm={searchTerm}
           handleSearch={handleSearch}
           onClick={() => {}}
+          textForModal="Create product"
+          typeModel="product"
         />
         <AdminTable
           isLoading={isLoading}

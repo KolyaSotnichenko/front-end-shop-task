@@ -2,7 +2,6 @@
 
 import AdminHeader from "@/components/AdminHeader";
 import AdminTable from "@/components/AdminTable/AdminTable/AdminTable";
-import { UserNav } from "@/components/UserNav";
 import { FC } from "react";
 import { useSubscriptions } from "./useSubscriptions";
 
@@ -12,11 +11,17 @@ const AdminSubscriptionsPage: FC = () => {
 
   return (
     <div className="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
-      <AdminHeader searchTerm={searchTerm} handleSearch={handleSearch} />
+      <AdminHeader
+        searchTerm={searchTerm}
+        handleSearch={handleSearch}
+        onClick={() => {}}
+        textForModal="Create subscription"
+        typeModel="subscription"
+      />
       <AdminTable
         isLoading={isLoading}
         removeHandler={deleteAsync}
-        headerItems={["Title", "Description", "Price"]}
+        headerItems={["Title", "Description", "Period", "Price"]}
         tableItems={data || []}
       />
     </div>

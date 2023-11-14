@@ -1,6 +1,10 @@
 import axios from "@/api/interceptors";
 import { getProductsUrl } from "@/config/api.config";
-import { ICreateProduct, IProduct } from "@/shared/types/product.types";
+import {
+  ICreateProduct,
+  IProduct,
+  IUpdateProduct,
+} from "@/shared/types/product.types";
 
 export const ProductService = {
   async createProduct(data: ICreateProduct) {
@@ -21,9 +25,9 @@ export const ProductService = {
     return axios.get<IProduct>(getProductsUrl(`/${_id}`));
   },
 
-  // async updateUser(_id: string, data: IProfileInput) {
-  //     return axios.put<string>(getUsersUrl(`/${_id}`), data)
-  // },
+  async updateProduct(_id: string, data: IUpdateProduct) {
+    return axios.put<string>(getProductsUrl(`/${_id}`), data);
+  },
 
   // async updateProfile(data: IProfileInput){
   //     return axios.put<string>(getUsersUrl(`/profile`), data)

@@ -3,7 +3,8 @@ import { getAdminUrl } from "@/config/url.config";
 import { useDebounce } from "@/hooks/useDebounde";
 import { toastError } from "@/lib/toast-error";
 import { ProductService } from "@/services/product.service";
-import { ICreateProduct } from "@/shared/types/product.types";
+import { ICreateProduct, IUpdateProduct } from "@/shared/types/product.types";
+import { useSearchParams } from "next/navigation";
 
 import { ChangeEvent, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -12,6 +13,10 @@ import { toastr } from "react-redux-toastr";
 export const useProducts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 500);
+
+  const searchParams = useSearchParams();
+
+  const productId = String(searchParams.get("id"));
 
   const queryData = useQuery(
     ["products list", debouncedSearch],
@@ -41,7 +46,7 @@ export const useProducts = () => {
     setSearchTerm(e.target.value);
   };
 
-  const { mutateAsync: createAsync } = useMutation(
+  const { mutateAsync: createProductAsync } = useMutation(
     "create product",
     (data: ICreateProduct) => ProductService.createProduct(data),
     {
@@ -51,6 +56,21 @@ export const useProducts = () => {
 
       onSuccess: () => {
         toastr.success("Create product", "create was successful");
+        queryData.refetch();
+      },
+    }
+  );
+
+  const { mutateAsync: updateProductAsync } = useMutation(
+    "update product",
+    (data: IUpdateProduct) => ProductService.updateProduct(productId, data),
+    {
+      onError: (error) => {
+        toastError(error, "Product list");
+      },
+
+      onSuccess: () => {
+        toastr.success("Update product", "create was successful");
         queryData.refetch();
       },
     }
@@ -77,8 +97,9 @@ export const useProducts = () => {
       ...queryData,
       searchTerm,
       deleteAsync,
-      createAsync,
+      createProductAsync,
+      updateProductAsync,
     }),
-    [queryData, searchTerm, deleteAsync, createAsync]
+    [queryData, searchTerm, deleteAsync, createProductAsync, updateProductAsync]
   );
 };

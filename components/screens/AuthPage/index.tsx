@@ -15,9 +15,11 @@ import { useActions } from "@/hooks/useActions";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IAuthInput } from "./auth.interface";
+import { useRouter } from "next/navigation";
 
 const AuthPage = () => {
   const { login, register } = useActions();
+  const router = useRouter();
 
   const [type, setType] = useState<"login" | "register">("login");
 

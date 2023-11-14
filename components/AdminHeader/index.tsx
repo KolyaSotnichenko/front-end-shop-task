@@ -7,12 +7,16 @@ interface IAdminHeader {
   onClick?: () => void;
   searchTerm: string;
   handleSearch: (event: ChangeEvent<HTMLInputElement>) => void;
+  textForModal?: string;
+  typeModel?: "product" | "subscription";
 }
 
 const AdminHeader: FC<IAdminHeader> = ({
   onClick,
   searchTerm,
   handleSearch,
+  textForModal,
+  typeModel,
 }) => {
   return (
     <div className="flex items-center justify-center w-full] gap-x-5">
@@ -23,7 +27,7 @@ const AdminHeader: FC<IAdminHeader> = ({
         type="text"
         placeholder="Search..."
       />
-      {onClick && <AdminModal text={"Create product"} />}
+      {onClick && <AdminModal text={textForModal!} type={typeModel!} />}
     </div>
   );
 };

@@ -1,19 +1,21 @@
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, ReactNode, useEffect } from "react";
 
 const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { user } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  console.log(pathname.split("/")[1]);
 
   useEffect(() => {
-    if (user) router.push("/dashboard");
-    if (user?.isAdmin) router.push("/admin-dashboard");
-    else {
-      router.push("/");
-    }
+    if (user && !user.isAdmin) router.push("/dashboard");
+    if (user && user.isAdmin && pathname === "/")
+      router.push("/admin-dashboard");
+    if (!user) router.push("/");
   }, [user]);
 
   return <>{children}</>;

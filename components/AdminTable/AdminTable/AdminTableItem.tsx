@@ -28,7 +28,7 @@ const AdminTableItem: FC<IAdminTableItem> = ({ removeHandler, tableItem }) => {
           );
         }
       })} */}
-      <AdminActions editUrl={tableItem.editUrl} removeHandler={removeHandler} />
+      <AdminActions editId={tableItem._id} removeHandler={removeHandler} />
     </div>
   );
 };

@@ -12,5 +12,12 @@ export interface ICreateProduct {
   title: string;
   description: string;
   image: string;
-  price: string;
+  price: number;
+}
+
+export interface IUpdateProduct {
+  title: string;
+  description: string;
+  image: string;
+  price: number;
 }

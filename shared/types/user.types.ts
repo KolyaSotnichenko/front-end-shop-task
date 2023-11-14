@@ -11,3 +11,8 @@ export interface IUser {
 
   createdAt: string;
 }
+
+export interface IUpdateUser {
+  email?: string;
+  isAdmin: string | boolean;
+}
