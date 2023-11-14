@@ -1,6 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import AdminModal from "../AdminModal";
 
 interface IAdminHeader {
   onClick?: () => void;
@@ -20,13 +21,9 @@ const AdminHeader: FC<IAdminHeader> = ({
         onChange={handleSearch}
         className="w-50"
         type="text"
-        placeholder="Search product"
+        placeholder="Search..."
       />
-      {onClick && (
-        <Button onClick={onClick} className="">
-          Create product
-        </Button>
-      )}
+      {onClick && <AdminModal text={"Create product"} />}
     </div>
   );
 };

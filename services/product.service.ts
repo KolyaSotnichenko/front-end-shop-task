@@ -1,8 +1,12 @@
 import axios from "@/api/interceptors";
 import { getProductsUrl } from "@/config/api.config";
-import { IProduct } from "@/shared/types/product.types";
+import { ICreateProduct, IProduct } from "@/shared/types/product.types";
 
 export const ProductService = {
+  async createProduct(data: ICreateProduct) {
+    return axios.post<string>(getProductsUrl(`/create`), data);
+  },
+
   async getAll(searchTerm?: string) {
     return axios.get<IProduct[]>(getProductsUrl(``), {
       params: searchTerm

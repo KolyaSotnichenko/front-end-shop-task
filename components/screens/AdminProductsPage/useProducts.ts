@@ -3,6 +3,7 @@ import { getAdminUrl } from "@/config/url.config";
 import { useDebounce } from "@/hooks/useDebounde";
 import { toastError } from "@/lib/toast-error";
 import { ProductService } from "@/services/product.service";
+import { ICreateProduct } from "@/shared/types/product.types";
 
 import { ChangeEvent, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -40,6 +41,21 @@ export const useProducts = () => {
     setSearchTerm(e.target.value);
   };
 
+  const { mutateAsync: createAsync } = useMutation(
+    "create product",
+    (data: ICreateProduct) => ProductService.createProduct(data),
+    {
+      onError: (error) => {
+        toastError(error, "Product list");
+      },
+
+      onSuccess: () => {
+        toastr.success("Create product", "create was successful");
+        queryData.refetch();
+      },
+    }
+  );
+
   const { mutateAsync: deleteAsync } = useMutation(
     "delete product",
     (productId: string) => ProductService.deleteProduct(productId),
@@ -61,7 +77,8 @@ export const useProducts = () => {
       ...queryData,
       searchTerm,
       deleteAsync,
+      createAsync,
     }),
-    [queryData, searchTerm, deleteAsync]
+    [queryData, searchTerm, deleteAsync, createAsync]
   );
 };

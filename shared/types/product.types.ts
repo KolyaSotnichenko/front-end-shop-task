@@ -7,3 +7,10 @@ export interface IProduct {
 
   createdAt: string;
 }
+
+export interface ICreateProduct {
+  title: string;
+  description: string;
+  image: string;
+  price: string;
+}
