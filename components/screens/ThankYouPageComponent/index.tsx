@@ -13,7 +13,7 @@ const ThankYouPageComponent = () => {
   const sessionId = searchParams.get("session_id");
 
   const { data, error } = useSWR(
-    () => `/api/checkout_session/${sessionId}`,
+    () => `/api/checkout_sessions/${sessionId}`,
     fetch
   );
 
