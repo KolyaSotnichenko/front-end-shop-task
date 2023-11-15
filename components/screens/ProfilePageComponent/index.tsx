@@ -69,23 +69,37 @@ const ProfilePageComponent = () => {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="address">Address</Label>
-                <Input id="address" type="text" {...updateInput("address")} />
+                <Input
+                  id="address"
+                  placeholder={profileData.data?.data.address}
+                  type="text"
+                  {...updateInput("address")}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="organization">Organization</Label>
                 <Input
                   id="organization"
                   type="text"
+                  placeholder={profileData.data?.data.organization}
                   {...updateInput("organization")}
                 />
               </div>
               <div className="grid gap-2">
-                <div className="items-top flex space-x-2">
+                <div className="flex flex-col items-top gap-4 space-x-2">
+                  <Label htmlFor="currency">Currency</Label>
                   <select
                     className="w-full cursor-pointer"
                     {...updateInput("currency")}
                   >
-                    <option value="">Select currency...</option>
+                    {profileData.data?.data.currency && (
+                      <option value={profileData.data?.data.currency}>
+                        {profileData.data?.data.currency.toUpperCase()}
+                      </option>
+                    )}
+                    {!profileData.data?.data.currency && (
+                      <option value="">Select currency...</option>
+                    )}
                     <option value="eur">EUR</option>
                     <option value="usd">USD</option>
                     <option value="uah">UAH</option>

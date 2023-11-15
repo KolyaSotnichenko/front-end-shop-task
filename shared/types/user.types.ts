@@ -5,6 +5,10 @@ export interface IUser {
   isAdmin: boolean;
   isActive: boolean;
 
+  address: string;
+  organization: string;
+  currency: string;
+
   subscription: [];
 
   products: [];

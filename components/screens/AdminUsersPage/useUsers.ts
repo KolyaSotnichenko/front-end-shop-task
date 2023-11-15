@@ -1,7 +1,7 @@
 import { ITableItem } from "@/components/AdminTable/AdminTable/admin-table.interface";
 import { getAdminUrl } from "@/config/url.config";
 import { useDebounce } from "@/hooks/useDebounde";
-import { convertMongoDate } from "@/lib/convertMongoDate";
+// import { convertMongoDate } from "@/lib/convertMongoDate";
 import { toastError } from "@/lib/toast-error";
 
 import { UserService } from "@/services/user.service";
@@ -72,10 +72,19 @@ export const useUsers = () => {
 
   const { mutateAsync: updateProfileAsync } = useMutation(
     "update profile",
-    (data: { email?: string; password?: string }) =>
+    (data: {
+      email?: string;
+      password?: string;
+      address?: string;
+      organization?: string;
+      currency?: string;
+    }) =>
       UserService.updateProfile({
         email: data.email,
         password: data.password,
+        address: data.address,
+        organization: data.organization,
+        currency: data.currency,
       }),
     {
       onError: (error) => {
