@@ -50,6 +50,10 @@ export const useSubscriptions = () => {
     setSearchTerm(e.target.value);
   };
 
+  const subscriptionData = useQuery("subscription data", () =>
+    SubscriptionService.getById(subscriptionId)
+  );
+
   const { mutateAsync: createSubscriptionAsync } = useMutation(
     "create subscription",
     (data: ICreateSubscription) => SubscriptionService.createSubscription(data),
@@ -105,6 +109,7 @@ export const useSubscriptions = () => {
       deleteAsync,
       createSubscriptionAsync,
       updateSubscriptionAsync,
+      subscriptionData,
     }),
     [
       queryData,
@@ -112,6 +117,7 @@ export const useSubscriptions = () => {
       deleteAsync,
       createSubscriptionAsync,
       updateSubscriptionAsync,
+      subscriptionData,
     ]
   );
 };

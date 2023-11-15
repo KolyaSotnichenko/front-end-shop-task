@@ -24,8 +24,8 @@ const AdminEditModal: FC<{
   text?: string;
   type: "product" | "subscription" | "user";
 }> = ({ text, type }) => {
-  const { updateProductAsync } = useProducts();
-  const { updateSubscriptionAsync } = useSubscriptions();
+  const { updateProductAsync, productData } = useProducts();
+  const { updateSubscriptionAsync, subscriptionData } = useSubscriptions();
   const { updateUserAsync } = useUsers();
 
   const router = useRouter();
@@ -92,7 +92,16 @@ const AdminEditModal: FC<{
               {(type === "product" || type === "subscription") && (
                 <div className="grid gap-2">
                   <Label htmlFor="title">Title</Label>
-                  <Input id="title" type="text" {...updateInput("title")} />
+                  <Input
+                    id="title"
+                    placeholder={
+                      type === "product"
+                        ? productData.data?.data.title
+                        : subscriptionData.data?.data.title
+                    }
+                    type="text"
+                    {...updateInput("title")}
+                  />
                 </div>
               )}
               {(type === "product" || type === "subscription") && (
@@ -101,6 +110,11 @@ const AdminEditModal: FC<{
                   <Input
                     id="description"
                     type="text"
+                    placeholder={
+                      type === "product"
+                        ? productData.data?.data.description
+                        : subscriptionData.data?.data.description
+                    }
                     {...updateInput("description")}
                   />
                 </div>
@@ -108,23 +122,46 @@ const AdminEditModal: FC<{
               {(type === "product" || type === "subscription") && (
                 <div className="grid gap-2">
                   <Label htmlFor="image">Image Url</Label>
-                  <Input id="image" type="text" {...updateInput("image")} />
+                  <Input
+                    id="image"
+                    placeholder={
+                      type === "product"
+                        ? productData.data?.data.image
+                        : subscriptionData.data?.data.image
+                    }
+                    type="text"
+                    {...updateInput("image")}
+                  />
                 </div>
               )}
               {(type === "product" || type === "subscription") && (
                 <div className="grid gap-2">
                   <Label htmlFor="price">Price</Label>
-                  <Input id="price" type="text" {...updateInput("price")} />
+                  <Input
+                    id="price"
+                    placeholder={
+                      type === "product"
+                        ? String(productData.data?.data.price)
+                        : String(subscriptionData.data?.data.price)
+                    }
+                    type="text"
+                    {...updateInput("price")}
+                  />
                 </div>
               )}
               {type === "subscription" && (
                 <div className="grid gap-2">
-                  <Label htmlFor="period">Period</Label>
-                  <Input id="period" type="text" {...updateInput("period")} />
+                  <Label htmlFor="period">Period (months)</Label>
+                  <Input
+                    id="period"
+                    placeholder={subscriptionData.data?.data.period}
+                    type="text"
+                    {...updateInput("period")}
+                  />
                 </div>
               )}
               <Button className="w-full" type="submit">
-                Create
+                Update
               </Button>
             </form>
           </DialogDescription>

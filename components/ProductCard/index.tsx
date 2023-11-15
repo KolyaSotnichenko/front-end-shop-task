@@ -13,6 +13,7 @@ import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "@/store/cart.slice";
+import { Badge } from "../ui/badge";
 
 interface IProductCard {
   id: string;
@@ -46,7 +47,7 @@ const ProductCard: FC<IProductCard> = ({
     <Card className="w-[240px] h-[240px] relative">
       <div className="flex flex-col justify-around">
         <Image
-          className=" flex-1 absolute w-full h-[40%] top-0"
+          className=" flex-1 absolute  w-full h-[40%] top-0"
           src={image}
           width={50}
           height={50}
@@ -61,7 +62,14 @@ const ProductCard: FC<IProductCard> = ({
             </CardHeader>
             <CardContent className="pt-6 text-slate-500">${price}</CardContent>
           </div>
-          {period && <p className="text-sm ">Period: {period}</p>}
+          {period && (
+            <Badge
+              variant="destructive"
+              className="text-[10px] absolute top-[-100%] right-2"
+            >
+              Period: {period}
+            </Badge>
+          )}
           <CardFooter>
             <Button
               className="w-full"

@@ -29,10 +29,6 @@ export const ProductService = {
     return axios.put<string>(getProductsUrl(`/${_id}`), data);
   },
 
-  // async updateProfile(data: IProfileInput){
-  //     return axios.put<string>(getUsersUrl(`/profile`), data)
-  // },
-
   async deleteProduct(_id: string) {
     return axios.delete<string>(getProductsUrl(`/${_id}`));
   },

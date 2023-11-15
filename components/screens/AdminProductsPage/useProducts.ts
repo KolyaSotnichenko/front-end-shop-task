@@ -61,6 +61,10 @@ export const useProducts = () => {
     }
   );
 
+  const productData = useQuery("product data", () =>
+    ProductService.getById(productId)
+  );
+
   const { mutateAsync: updateProductAsync } = useMutation(
     "update product",
     (data: IUpdateProduct) => ProductService.updateProduct(productId, data),
@@ -99,7 +103,15 @@ export const useProducts = () => {
       deleteAsync,
       createProductAsync,
       updateProductAsync,
+      productData,
     }),
-    [queryData, searchTerm, deleteAsync, createProductAsync, updateProductAsync]
+    [
+      queryData,
+      searchTerm,
+      deleteAsync,
+      createProductAsync,
+      updateProductAsync,
+      productData,
+    ]
   );
 };
