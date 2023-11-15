@@ -66,6 +66,21 @@ export const useUsers = () => {
     }
   );
 
+  const { mutateAsync: addProductsAsync } = useMutation(
+    "add products",
+    (data: string[]) => UserService.addProduct(data),
+    {
+      onError: (error) => {
+        toastError(error, "Add products ");
+      },
+
+      onSuccess: () => {
+        toastr.success("Add products", "add was successful");
+        queryData.refetch();
+      },
+    }
+  );
+
   const userData = useQuery("user data", () => UserService.getById(userId));
 
   const profileData = useQuery("profile data", () => UserService.getProfile());
@@ -123,6 +138,7 @@ export const useUsers = () => {
       userData,
       profileData,
       updateProfileAsync,
+      addProductsAsync,
     }),
     [
       queryData,
@@ -132,6 +148,7 @@ export const useUsers = () => {
       userData,
       profileData,
       updateProfileAsync,
+      addProductsAsync,
     ]
   );
 };

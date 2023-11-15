@@ -4,6 +4,7 @@ import { FC } from "react";
 import Link from "next/link";
 import { UserNav } from "../UserNav";
 import { ShoppingBasket, Trash2 } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,13 +22,38 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   const dispatch = useDispatch();
   const items = useSelector((state: any) => state.cart.items);
 
-  const handleCheckout = () => {
-    dispatch(clearCart());
-  };
-
   const totalPrice = items.reduce((total: any, curVal: any) => {
     return Number(total) + Number(curVal.price);
   }, 0);
+
+  const redirectToCheckout = async () => {
+    try {
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY as string
+      );
+
+      if (!stripe) throw new Error("Stripe failed to initialize.");
+
+      const checkoutResponse = await fetch("/api/checkout_sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items }),
+      });
+
+      localStorage.setItem("products", JSON.stringify({ items }));
+
+      const { sessionId } = await checkoutResponse.json();
+      const stripeError = await stripe.redirectToCheckout({ sessionId });
+
+      if (stripeError) {
+        console.error(stripeError);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between space-y-2 p-4 border-b mb-4 sticky top-0">
@@ -87,7 +113,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
             </p>
             <Button
               disabled={items.length === 0}
-              onClick={handleCheckout}
+              onClick={redirectToCheckout}
               className="h-8 w-full"
             >
               Checkout

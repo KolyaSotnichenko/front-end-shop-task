@@ -26,6 +26,10 @@ export const UserService = {
     return axios.put<string>(getUsersUrl(`/${_id}`), data);
   },
 
+  async addProduct(data: string[]) {
+    return axios.put(getUsersUrl("/profile/add-products"), data);
+  },
+
   async updateProfile(data: {
     email?: string;
     password?: string;
