@@ -21,11 +21,23 @@ const ProfilePageComponent = () => {
     register: updateInput,
     handleSubmit,
     reset,
-  } = useForm<{ email: string; password: string }>({
+  } = useForm<{
+    email: string;
+    password: string;
+    organization: string;
+    address: string;
+    currency: string;
+  }>({
     mode: "onChange",
   });
 
-  const handleUpdate = (data: { email?: string; password?: string }) => {
+  const handleUpdate = (data: {
+    email?: string;
+    password?: string;
+    organization?: string;
+    address?: string;
+    currency?: string;
+  }) => {
     updateProfileAsync(data);
     reset();
   };
@@ -53,11 +65,32 @@ const ProfilePageComponent = () => {
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
+                <Input id="password" type="text" {...updateInput("password")} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="address">Address</Label>
+                <Input id="address" type="text" {...updateInput("address")} />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="organization">Organization</Label>
                 <Input
-                  id="password"
-                  type="password"
-                  {...updateInput("password")}
+                  id="organization"
+                  type="text"
+                  {...updateInput("organization")}
                 />
+              </div>
+              <div className="grid gap-2">
+                <div className="items-top flex space-x-2">
+                  <select
+                    className="w-full cursor-pointer"
+                    {...updateInput("currency")}
+                  >
+                    <option value="">Select currency...</option>
+                    <option value="eur">EUR</option>
+                    <option value="usd">USD</option>
+                    <option value="uah">UAH</option>
+                  </select>
+                </div>
               </div>
             </CardContent>
             <CardFooter className="flex gap-x-10">
