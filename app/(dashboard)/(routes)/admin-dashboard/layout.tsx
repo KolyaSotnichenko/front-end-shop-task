@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import AdminLayoutHeader from "@/components/AdminLayoutHeader";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="mt-5">
-      <Header logo="Admin" homePage="/admin-dashboard" />
+      <AdminLayoutHeader logo="Admin" homePage="/admin-dashboard" />
       {children}
     </div>
   );
