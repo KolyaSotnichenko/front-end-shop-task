@@ -18,7 +18,7 @@ interface IProductCard {
   id: string;
   title: string;
   description: string;
-  image: StaticImageData;
+  image: string | StaticImageData;
   price: string;
   period?: string;
 }
@@ -33,34 +33,28 @@ const ProductCard: FC<IProductCard> = ({
 }) => {
   const dispatch = useDispatch();
 
-  // const handleAddToCart = ({
-  //   id, title, price,
-  // }:
-  //   { id: string; title: string; price: string };
-  // ) => {
-  //   dispatch(addItem(product));
-  // };
-
   const handleAddToCart = (id: string, title: string, price: string) => {
     dispatch(addItem({ id, title, price }));
   };
 
   return (
-    <Card>
-      <div className="flex justify-around">
+    <Card className="w-[240px] h-[240px] relative">
+      <div className="flex flex-col justify-around">
         <Image
-          className=" flex-1 w-full h-full"
+          className=" flex-1 absolute w-full h-[40%] top-0"
           src={image}
-          width={100}
-          height={100}
+          width={50}
+          height={50}
           alt="Product image"
         />
-        <div className="flex-1">
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </CardHeader>
-          <CardContent>${price}</CardContent>
+        <div className="flex flex-col flex-1 absolute bottom-0 w-full">
+          <div className="flex items-center h-20">
+            <CardHeader>
+              <CardTitle>{title}</CardTitle>
+              {/* <CardDescription>{description}</CardDescription> */}
+            </CardHeader>
+            <CardContent className="p-0">${price}</CardContent>
+          </div>
           <CardFooter>
             <Button
               className="w-full"
