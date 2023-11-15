@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { UserNav } from "../UserNav";
+import { AdminNav } from "../AdminNav";
 import Link from "next/link";
 
 const Header: FC<{ logo: string; homePage: string }> = ({ logo, homePage }) => {
@@ -11,7 +11,7 @@ const Header: FC<{ logo: string; homePage: string }> = ({ logo, homePage }) => {
         </h2>
       </div>
       <div className="flex items-center space-x-2">
-        <UserNav />
+        <AdminNav />
       </div>
     </div>
   );

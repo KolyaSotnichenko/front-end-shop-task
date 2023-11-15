@@ -10,7 +10,7 @@ const nextConfig = {
 
     images: {
         domains: [
-            'www.google.com',
+            'asset.cloudinary.com',
         ]
     },
 

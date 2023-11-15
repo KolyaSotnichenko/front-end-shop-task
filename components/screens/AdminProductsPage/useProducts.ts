@@ -28,7 +28,7 @@ export const useProducts = () => {
             _id: product._id,
             editUrl: getAdminUrl(`product/edit/${product._id}`),
             items: [
-              // product.image,
+              product.image,
               product.title,
               product.description,
               product.price.toString(),
