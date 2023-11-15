@@ -15,11 +15,9 @@ import { ICreateProduct } from "@/shared/types/product.types";
 import { useProducts } from "../screens/AdminProductsPage/useProducts";
 import { useSubscriptions } from "../screens/AdminSubscriptionsPage/useSubscriptions";
 import { ICreateSubscription } from "@/shared/types/subscription.types";
+import { PlusCircle } from "lucide-react";
 
-const AdminModal: FC<{ text: string; type: "product" | "subscription" }> = ({
-  text,
-  type,
-}) => {
+const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
   const { createProductAsync } = useProducts();
   const { createSubscriptionAsync } = useSubscriptions();
 
@@ -42,7 +40,9 @@ const AdminModal: FC<{ text: string; type: "product" | "subscription" }> = ({
 
   return (
     <Dialog>
-      <DialogTrigger>{text}</DialogTrigger>
+      <DialogTrigger>
+        <PlusCircle />
+      </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>

@@ -27,7 +27,7 @@ const AdminHeader: FC<IAdminHeader> = ({
         type="text"
         placeholder="Search..."
       />
-      {onClick && <AdminModal text={textForModal!} type={typeModel!} />}
+      {onClick && <AdminModal type={typeModel!} />}
     </div>
   );
 };

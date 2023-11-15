@@ -21,7 +21,7 @@ const AdminSubscriptionsPage: FC = () => {
       <AdminTable
         isLoading={isLoading}
         removeHandler={deleteAsync}
-        headerItems={["Title", "Description", "Period", "Price"]}
+        headerItems={["Image", "Title", "Description", "Period", "Price"]}
         tableItems={data || []}
       />
     </div>
