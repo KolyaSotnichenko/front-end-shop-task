@@ -31,7 +31,7 @@ export const useSubscriptions = () => {
             _id: subscription._id,
             editUrl: getAdminUrl(`subscription/edit/${subscription._id}`),
             items: [
-              // product.image,
+              subscription.image,
               subscription.title,
               subscription.description,
               subscription.period,

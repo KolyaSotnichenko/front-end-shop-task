@@ -11,7 +11,7 @@ import {
 } from "../ui/card";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "@/store/cart.slice";
 
 interface IProductCard {
@@ -32,9 +32,14 @@ const ProductCard: FC<IProductCard> = ({
   id,
 }) => {
   const dispatch = useDispatch();
+  const items = useSelector((state: any) => state.cart.items);
 
   const handleAddToCart = (id: string, title: string, price: string) => {
-    dispatch(addItem({ id, title, price }));
+    const isAdded = items.length && items.some((item: any) => item.id === id);
+
+    if (!isAdded) {
+      return dispatch(addItem({ id, title, price }));
+    }
   };
 
   return (
@@ -45,16 +50,18 @@ const ProductCard: FC<IProductCard> = ({
           src={image}
           width={50}
           height={50}
+          priority
           alt="Product image"
         />
         <div className="flex flex-col flex-1 absolute bottom-0 w-full">
-          <div className="flex items-center h-20">
+          <div className="flex items-center justify-between h-12">
             <CardHeader>
-              <CardTitle>{title}</CardTitle>
+              <CardTitle className="text-lg">{title}</CardTitle>
               {/* <CardDescription>{description}</CardDescription> */}
             </CardHeader>
-            <CardContent className="p-0">${price}</CardContent>
+            <CardContent className="pt-6 text-slate-500">${price}</CardContent>
           </div>
+          {period && <p className="text-sm ">Period: {period}</p>}
           <CardFooter>
             <Button
               className="w-full"

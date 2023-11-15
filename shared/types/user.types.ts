@@ -14,5 +14,5 @@ export interface IUser {
 
 export interface IUpdateUser {
   email?: string;
-  isAdmin: string | boolean;
+  isAdmin?: string | boolean;
 }

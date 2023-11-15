@@ -1,10 +1,10 @@
 "use client";
 
 import ProductCard from "@/components/ProductCard";
-import { useProducts } from "../AdminProductsPage/useProducts";
+import { useSubscriptions } from "../AdminSubscriptionsPage/useSubscriptions";
 
-const UserProductsPage = () => {
-  const { data } = useProducts();
+const UserSubscriptionsPage = () => {
+  const { data } = useSubscriptions();
 
   return (
     <div className=" flex items-center justify-center h-full w-full">
@@ -17,7 +17,8 @@ const UserProductsPage = () => {
                 title={item.items[1]}
                 description={item.items[2]}
                 image={item.items[0]}
-                price={item.items[3]}
+                period={item.items[3]}
+                price={item.items[4]}
               />
             </div>
           ))}
@@ -26,4 +27,4 @@ const UserProductsPage = () => {
   );
 };
 
-export default UserProductsPage;
+export default UserSubscriptionsPage;

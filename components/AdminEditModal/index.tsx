@@ -18,15 +18,7 @@ import { ICreateSubscription } from "@/shared/types/subscription.types";
 import { Edit } from "lucide-react";
 import { IUpdateUser } from "@/shared/types/user.types";
 import { useRouter } from "next/navigation";
-import { Checkbox } from "../ui/checkbox";
 import { useUsers } from "../screens/AdminUsersPage/useUsers";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
 
 const AdminEditModal: FC<{
   text?: string;
@@ -86,17 +78,6 @@ const AdminEditModal: FC<{
               {type === "user" && (
                 <div className="grid gap-2">
                   <div className="items-top flex space-x-2">
-                    {/* <Select
-                      
-                    >
-                      <SelectTrigger  className="w-full">
-                        <SelectValue placeholder="Is admin?" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="true">True</SelectItem>
-                        <SelectItem value="false">False</SelectItem>
-                      </SelectContent>
-                    </Select> */}
                     <select
                       className="w-full cursor-pointer"
                       {...updateInput("isAdmin")}

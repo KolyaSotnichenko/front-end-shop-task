@@ -12,7 +12,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   console.log(pathname.split("/")[1]);
 
   useEffect(() => {
-    if (user && !user.isAdmin) router.push("/dashboard");
+    if (user && !user.isAdmin && pathname === "/") router.push("/dashboard");
     if (user && user.isAdmin && pathname === "/")
       router.push("/admin-dashboard");
     if (!user) router.push("/");

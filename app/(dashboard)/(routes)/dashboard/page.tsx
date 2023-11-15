@@ -1,7 +1,7 @@
-import UserProductsPage from "@/components/screens/UserProductsPage";
+import DashboardPageComponent from "@/components/screens/DashboardPageComponent";
 
 const DashboardPage = () => {
-  return <UserProductsPage />;
+  return <DashboardPageComponent />;
 };
 
 export default DashboardPage;

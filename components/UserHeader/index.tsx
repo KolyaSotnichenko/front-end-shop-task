@@ -83,7 +83,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
               </div>
             )}
             <p className="text-sm">
-              Total price: {totalPrice ? totalPrice : 0}
+              Total price: ${totalPrice ? totalPrice : 0}
             </p>
             <Button onClick={handleCheckout} className="h-8 w-full">
               Checkout
