@@ -60,13 +60,34 @@ export const useUsers = () => {
       },
 
       onSuccess: () => {
-        toastr.success("Update user", "create was successful");
+        toastr.success("Update user", "update was successful");
         queryData.refetch();
       },
     }
   );
 
   const userData = useQuery("user data", () => UserService.getById(userId));
+
+  const profileData = useQuery("profile data", () => UserService.getProfile());
+
+  const { mutateAsync: updateProfileAsync } = useMutation(
+    "update profile",
+    (data: { email?: string; password?: string }) =>
+      UserService.updateProfile({
+        email: data.email,
+        password: data.password,
+      }),
+    {
+      onError: (error) => {
+        toastError(error, "Profile");
+      },
+
+      onSuccess: () => {
+        toastr.success("Update profile", "update was successful");
+        queryData.refetch();
+      },
+    }
+  );
 
   const { mutateAsync: deleteAsync } = useMutation(
     "delete user",
@@ -91,7 +112,17 @@ export const useUsers = () => {
       deleteAsync,
       updateUserAsync,
       userData,
+      profileData,
+      updateProfileAsync,
     }),
-    [queryData, searchTerm, deleteAsync, updateUserAsync, userData]
+    [
+      queryData,
+      searchTerm,
+      deleteAsync,
+      updateUserAsync,
+      userData,
+      profileData,
+      updateProfileAsync,
+    ]
   );
 };
