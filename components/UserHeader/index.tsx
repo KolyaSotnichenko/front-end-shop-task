@@ -85,7 +85,11 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
             <p className="text-sm">
               Total price: ${totalPrice ? totalPrice : 0}
             </p>
-            <Button onClick={handleCheckout} className="h-8 w-full">
+            <Button
+              disabled={items.length === 0}
+              onClick={handleCheckout}
+              className="h-8 w-full"
+            >
               Checkout
             </Button>
           </DropdownMenuContent>
