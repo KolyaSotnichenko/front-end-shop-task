@@ -4,16 +4,15 @@ import { FC } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "../ui/card";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { addItem } from "@/store/cart.slice";
+import { useSelector } from "react-redux";
 import { Badge } from "../ui/badge";
+import { useActions } from "@/hooks/useActions";
 
 interface IProductCard {
   id: string;
@@ -32,14 +31,21 @@ const ProductCard: FC<IProductCard> = ({
   period,
   id,
 }) => {
-  const dispatch = useDispatch();
+  const { addItem, increaseCountItem } = useActions();
   const items = useSelector((state: any) => state.cart.items);
 
-  const handleAddToCart = (id: string, title: string, price: string) => {
+  const handleAddToCart = (
+    id: string,
+    title: string,
+    count: number,
+    price: string
+  ) => {
     const isAdded = items.length && items.some((item: any) => item.id === id);
 
-    if (!isAdded) {
-      return dispatch(addItem({ id, title, price }));
+    if (isAdded) {
+      return increaseCountItem({ id, title, count: count++, price });
+    } else {
+      return addItem({ id, title, count, price });
     }
   };
 
@@ -74,7 +80,7 @@ const ProductCard: FC<IProductCard> = ({
             <Button
               className="w-full"
               variant="outline"
-              onClick={() => handleAddToCart(id, title, price)}
+              onClick={() => handleAddToCart(id, title, 1, price)}
             >
               Buy
             </Button>

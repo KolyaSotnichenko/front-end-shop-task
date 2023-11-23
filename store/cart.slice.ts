@@ -5,6 +5,7 @@ interface IInitialState {
   items: {
     id: string;
     title: string;
+    count: number;
     price: string;
   }[];
 }
@@ -20,6 +21,16 @@ const cartSlice = createSlice({
     addItem: (state, action) => {
       state.items.push(action.payload);
     },
+    increaseCountItem: (state, action) => {
+      state.items.filter(
+        (item) => item.id === action.payload.id && item.count++
+      );
+    },
+    decreaseCountItem: (state, action) => {
+      state.items.filter(
+        (item) => item.id === action.payload.id && item.count--
+      );
+    },
     removeItem: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload.id);
     },
@@ -29,5 +40,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export const {
+  addItem,
+  increaseCountItem,
+  decreaseCountItem,
+  removeItem,
+  clearCart,
+} = cartSlice.actions;
 export const { reducer } = cartSlice;

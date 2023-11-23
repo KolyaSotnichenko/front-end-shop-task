@@ -12,18 +12,22 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart, removeItem } from "@/store/cart.slice";
+import { useSelector } from "react-redux";
+import { useActions } from "@/hooks/useActions";
 
 const UserHeader: FC<{ logo: string; homePage: string }> = ({
   logo,
   homePage,
 }) => {
-  const dispatch = useDispatch();
+  const { increaseCountItem, decreaseCountItem, removeItem } = useActions();
   const items = useSelector((state: any) => state.cart.items);
 
   const totalPrice = items.reduce((total: any, curVal: any) => {
-    return Number(total) + Number(curVal.price);
+    return Number(total) + Number(curVal.price) * curVal.count;
+  }, 0);
+
+  const totalCartCount = items.reduce((total: any, curVal: any) => {
+    return Number(total) + curVal.count;
   }, 0);
 
   const redirectToCheckout = async () => {
@@ -69,7 +73,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
               <ShoppingBasket />
               {items && (
                 <p className="text-sm absolute top-0 right-3 text-slate-400">
-                  {items.length}
+                  {totalCartCount}
                 </p>
               )}
             </Button>
@@ -89,19 +93,50 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
             )}
             {items.length > 0 && (
               <div className="flex flex-col mb-4 min-h-[200px]">
+                <div className="flex items-center justify-around text-xs border-b border-b-black">
+                  <p>Title</p>
+                  <p>Count</p>
+                  <p>Price</p>
+                </div>
                 {items.map((item: any) => (
                   <div
                     key={item.id}
-                    className="flex items-center justify-between p-4 border-b border-blue-300"
+                    className="flex items-center justify-between p-2 border-b border-blue-300"
                   >
-                    <p className="flex-1 w-full text-gray-900">{item.title}</p>
-                    <div className="flex items-center gap-x-3">
-                      <p className="flex-1 w-full text-right text-sm text-gray-400">
+                    <p className="flex-1 w-full text-gray-900 text-xs whitespace-nowrap overflow-hidden text-ellipsis">
+                      {item.title}
+                    </p>
+                    <div className="flex flex-1 items-center gap-2">
+                      <Button
+                        onClick={() => {
+                          if (item.count < 2) {
+                            removeItem(item);
+                          } else {
+                            decreaseCountItem(item);
+                          }
+                        }}
+                        variant="ghost"
+                        className="h-2 w-2"
+                        disabled={item.count === 0}
+                      >
+                        -
+                      </Button>
+                      <p className="text-xs">{item.count}</p>
+                      <Button
+                        onClick={() => increaseCountItem(item)}
+                        variant="ghost"
+                        className="h-2 w-2"
+                      >
+                        +
+                      </Button>
+                    </div>
+                    <div className="flex flex-1 items-center gap-x-2">
+                      <p className="flex-1 w-full text-right text-xs text-gray-400">
                         ${item.price}
                       </p>
                       <Trash2
-                        className="w-4 h-4 cursor-pointer"
-                        onClick={() => dispatch(removeItem(item))}
+                        className="w-3 h-3 cursor-pointer"
+                        onClick={() => removeItem(item)}
                       />
                     </div>
                   </div>

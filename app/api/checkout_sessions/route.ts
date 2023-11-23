@@ -4,22 +4,24 @@ import stripe from "@/config/stripe";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const headersList = headers();
-  const { items } = await req.json();
+  const { items, customerEmail, customerAddress } = await req.json();
 
   const lineItems =
     items &&
-    items.map((item: { id: string; title: string; price: string }) => {
-      return {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: item.title,
+    items.map(
+      (item: { id: string; title: string; count: number; price: string }) => {
+        return {
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.title,
+            },
+            unit_amount: Number(item.price) * 100,
           },
-          unit_amount: Number(item.price) * 100,
-        },
-        quantity: 1,
-      };
-    });
+          quantity: item.count,
+        };
+      }
+    );
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -30,6 +32,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
         "origin"
       )}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${headersList.get("origin")}/`,
+      // billing_address_collection: "required",
+      customer_email: customerEmail,
     });
 
     return NextResponse.json({ sessionId: session.id });

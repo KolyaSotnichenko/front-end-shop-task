@@ -8,9 +8,7 @@ export default async function handler(req: NextRequest, res: NextResponse) {
     if (!session_id.startsWith("cs_")) {
       throw Error("Incorrect CheckoutSession ID.");
     }
-    const checkout_session = await stripe.checkout.sessions.retrieve(
-      session_id
-    );
+    const checkout_session = await stripe.invoiceItems.retrieve(session_id);
 
     return NextResponse.json(checkout_session);
   } catch (err) {
