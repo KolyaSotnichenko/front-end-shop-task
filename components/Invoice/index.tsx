@@ -7,11 +7,14 @@ import axios from "@/api/interceptors";
 import { IUser } from "@/shared/types/user.types";
 import { getUsersUrl } from "@/config/api.config";
 import { useEffect, useState } from "react";
+import { useActions } from "@/hooks/useActions";
 
 const Invoice = () => {
   const [userData, setUserData] = useState<IUser>();
 
   const products = getStoreLocal("products");
+
+  const { addInvoice } = useActions();
 
   const totalPrice = products.items.reduce((total: any, curVal: any) => {
     return Number(total) + Number(curVal.price) * curVal.count;
@@ -32,6 +35,51 @@ const Invoice = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const invoiceNumber = generateInvoiceId();
+
+  console.log(
+    products.items
+      .filter((product: any) => !product.isSubscription)
+      .map((product: any) => product.id)
+  );
+
+  useEffect(() => {
+    if (userData && products) {
+      addInvoice({
+        id: userData._id,
+        invoiceNumber,
+        products: [
+          ...products.items
+            .filter((product: any) => !product.isSubscription)
+            .map((product: any) => product.id),
+        ],
+        subscriptions: [
+          ...products.items
+            .filter((product: any) => product.isSubscription)
+            .map((product: any) => product.id),
+        ],
+      });
+
+      localStorage.setItem(
+        "invoice",
+        JSON.stringify({
+          id: userData._id,
+          invoiceNumber,
+          products: [
+            ...products.items
+              .filter((product: any) => !product.isSubscription)
+              .map((product: any) => product.id),
+          ],
+          subscriptions: [
+            ...products.items
+              .filter((product: any) => product.isSubscription)
+              .map((product: any) => product.id),
+          ],
+        })
+      );
+    }
+  }, [userData, products]);
 
   return (
     <>
@@ -63,7 +111,7 @@ const Invoice = () => {
                       {/* <p>San Javier</p>
                       <p>CA 1234</p> */}
                     </div>
-                    <div className="text-sm font-light text-slate-500">
+                    {/* <div className="text-sm font-light text-slate-500">
                       <p className="text-sm font-normal text-slate-700">
                         Billed To
                       </p>
@@ -71,12 +119,12 @@ const Invoice = () => {
                       <p>Tesla Street 007</p>
                       <p>Frisco</p>
                       <p>CA 0000</p>
-                    </div>
+                    </div> */}
                     <div className="text-sm font-light text-slate-500">
                       <p className="text-sm font-normal text-slate-700 ">
                         Invoice Number
                       </p>
-                      <p className="break-words">{generateInvoiceId()}</p>
+                      <p className="break-words">{invoiceNumber}</p>
 
                       <p className="mt-2 text-sm font-normal text-slate-700">
                         Date of Issue

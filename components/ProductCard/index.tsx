@@ -10,9 +10,9 @@ import {
 } from "../ui/card";
 import Image, { StaticImageData } from "next/image";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
 import { Badge } from "../ui/badge";
 import { useActions } from "@/hooks/useActions";
+import { useCart } from "@/hooks/useCart";
 
 interface IProductCard {
   id: string;
@@ -32,7 +32,7 @@ const ProductCard: FC<IProductCard> = ({
   id,
 }) => {
   const { addItem, increaseCountItem } = useActions();
-  const items = useSelector((state: any) => state.cart.items);
+  const { items } = useCart();
 
   const handleAddToCart = (
     id: string,
@@ -40,12 +40,27 @@ const ProductCard: FC<IProductCard> = ({
     count: number,
     price: string
   ) => {
-    const isAdded = items.length && items.some((item: any) => item.id === id);
+    const isAdded = items && items.find((item: any) => item.id === id);
+
+    const isSubsc = items && items.some((item: any) => period);
 
     if (isAdded) {
-      return increaseCountItem({ id, title, count: count++, price });
+      return increaseCountItem({
+        id,
+        title,
+        count: count++,
+        isSubscription: isSubsc,
+        price,
+      });
     } else {
-      return addItem({ id, title, count, price });
+      return addItem({
+        id,
+        title,
+        count,
+        isSubscription: isSubsc,
+        price,
+        period,
+      });
     }
   };
 

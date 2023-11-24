@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import { UserNav } from "../UserNav";
 import { ShoppingBasket, Trash2 } from "lucide-react";
@@ -8,19 +8,20 @@ import { loadStripe } from "@stripe/stripe-js";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { useSelector } from "react-redux";
 import { useActions } from "@/hooks/useActions";
+import ConfirmCheckout from "../ConfirmCheckout";
+import { useCart } from "@/hooks/useCart";
 
 const UserHeader: FC<{ logo: string; homePage: string }> = ({
   logo,
   homePage,
 }) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const { increaseCountItem, decreaseCountItem, removeItem } = useActions();
-  const items = useSelector((state: any) => state.cart.items);
+  const { items } = useCart();
 
   const totalPrice = items.reduce((total: any, curVal: any) => {
     return Number(total) + Number(curVal.price) * curVal.count;
@@ -29,6 +30,10 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   const totalCartCount = items.reduce((total: any, curVal: any) => {
     return Number(total) + curVal.count;
   }, 0);
+
+  const handleOpenModal = () => {
+    setIsOpenModal(!isOpenModal);
+  };
 
   const redirectToCheckout = async () => {
     try {
@@ -45,8 +50,6 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
         },
         body: JSON.stringify({ items }),
       });
-
-      localStorage.setItem("products", JSON.stringify({ items }));
 
       const { sessionId } = await checkoutResponse.json();
       const stripeError = await stripe.redirectToCheckout({ sessionId });
@@ -148,7 +151,11 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
             </p>
             <Button
               disabled={items.length === 0}
-              onClick={redirectToCheckout}
+              onClick={() => {
+                localStorage.setItem("totalPrice", String(totalPrice));
+                localStorage.setItem("products", JSON.stringify({ items }));
+                setIsOpenModal(true);
+              }}
               className="h-8 w-full"
             >
               Checkout
@@ -157,6 +164,11 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
         </DropdownMenu>
         <UserNav />
       </div>
+      <ConfirmCheckout
+        handleCheckout={redirectToCheckout}
+        isOpen={isOpenModal}
+        handleOpen={handleOpenModal}
+      />
     </div>
   );
 };

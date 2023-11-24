@@ -6,3 +6,4 @@ export const getUsersUrl = (string: string) => `/users${string}`;
 export const getProductsUrl = (string: string) => `/products${string}`;
 export const getSubscriptionsUrl = (string: string) =>
   `/subscriptions${string}`;
+export const getInvoicesUrl = (string: string) => `/invoices${string}`;
