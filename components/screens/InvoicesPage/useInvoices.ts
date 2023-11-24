@@ -28,12 +28,13 @@ export const useInvoices = () => {
           _id: invoice._id,
           items: [
             {
+              invoiceId: invoice._id,
               invoiceNumber: invoice.invoiceNumber,
               invoiceUser: invoice.user._id,
               invoiceCreatedAt: invoice.createdAt,
               invoiceProducts: [
                 ...invoice.products.map((product) => {
-                  return { title: product.title, total: product.price };
+                  return { title: product.title };
                 }),
               ],
               invoiceSubscriptions: [

@@ -20,7 +20,7 @@ interface IProductCard {
   description: string;
   image: string | StaticImageData;
   price: string;
-  period?: string;
+  period?: string | undefined;
 }
 
 const ProductCard: FC<IProductCard> = ({
@@ -44,7 +44,7 @@ const ProductCard: FC<IProductCard> = ({
 
     const isSubsc = items && items.some((item: any) => period);
 
-    if (isAdded) {
+    if (isAdded && !isSubsc) {
       return increaseCountItem({
         id,
         title,
@@ -52,12 +52,35 @@ const ProductCard: FC<IProductCard> = ({
         isSubscription: isSubsc,
         price,
       });
-    } else {
+    }
+
+    if (isAdded && isSubsc) {
+      return addItem({
+        id,
+        title,
+        count: count++,
+        isSubscription: isSubsc,
+        price,
+        period,
+      });
+    }
+
+    if (period === undefined) {
+      return addItem({
+        id,
+        title,
+        count: count,
+        isSubscription: false,
+        price,
+      });
+    }
+
+    if (period) {
       return addItem({
         id,
         title,
         count,
-        isSubscription: isSubsc,
+        isSubscription: true,
         price,
         period,
       });

@@ -19,14 +19,22 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { IProduct } from "@/shared/types/product.types";
+import { useRouter } from "next/navigation";
+import { getStoreLocal } from "@/lib/local-storage";
 
 const InvoicesPageComponent = () => {
   const { data } = useInvoices();
+  const router = useRouter();
+
+  const user = getStoreLocal("user");
+
+  const filteredInvoices = data?.map((item) =>
+    item.items.filter((invoice: any) => invoice.invoiceUser === user?._id)
+  );
 
   return (
     <div className="flex justify-center items-center p-20">
-      {data && data.length !== 0 ? (
+      {filteredInvoices && filteredInvoices.length !== 0 ? (
         <Table>
           <TableCaption>A list of your recent invoices.</TableCaption>
           <TableHeader>
@@ -39,11 +47,16 @@ const InvoicesPageComponent = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((item) => (
+            {filteredInvoices?.map((item) => (
               <>
-                {item.items.map((invoice: any) => (
-                  <TableRow key={invoice.id}>
-                    <TableCell className="font-medium">
+                {item.map((invoice: any) => (
+                  <TableRow key={invoice.invoiceNumber}>
+                    <TableCell
+                      className="font-medium cursor-pointer"
+                      onClick={() =>
+                        router.push(`/invoice/${invoice.invoiceId}`)
+                      }
+                    >
                       {invoice.invoiceNumber}
                     </TableCell>
                     <TableCell>
@@ -58,7 +71,7 @@ const InvoicesPageComponent = () => {
                             {[
                               ...invoice.invoiceProducts,
                               ...invoice.invoiceSubscriptions,
-                            ].map((product: IProduct) => (
+                            ].map((product: { title: string }) => (
                               <DropdownMenuRadioItem value="">
                                 {product.title}
                               </DropdownMenuRadioItem>

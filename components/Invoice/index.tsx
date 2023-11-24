@@ -40,7 +40,7 @@ const Invoice = () => {
 
   console.log(
     products.items
-      .filter((product: any) => !product.isSubscription)
+      .filter((product: any) => product.isSubscription)
       .map((product: any) => product.id)
   );
 
@@ -76,6 +76,7 @@ const Invoice = () => {
               .filter((product: any) => product.isSubscription)
               .map((product: any) => product.id),
           ],
+          totalPrice: totalPrice,
         })
       );
     }
