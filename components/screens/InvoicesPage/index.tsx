@@ -23,7 +23,7 @@ import { useRouter } from "next/navigation";
 import { getStoreLocal } from "@/lib/local-storage";
 
 const InvoicesPageComponent = () => {
-  const { data } = useInvoices();
+  const { data } = useInvoices({ invoiceId: "" });
   const router = useRouter();
 
   const user = getStoreLocal("user");
@@ -54,7 +54,7 @@ const InvoicesPageComponent = () => {
                     <TableCell
                       className="font-medium cursor-pointer"
                       onClick={() =>
-                        router.push(`/invoice/${invoice.invoiceId}`)
+                        router.push(`/dashboard/invoices/${invoice.invoiceId}`)
                       }
                     >
                       {invoice.invoiceNumber}

@@ -1,11 +1,7 @@
-import Invoice from "@/components/Invoice";
+import InvoiceDetail from "@/components/InvoiceDetail";
 
-const InvoicePage = () => {
-  return (
-    <>
-      <Invoice />
-    </>
-  );
+const InvoicePage = ({ params }: { params: { id: string } }) => {
+  return <InvoiceDetail invoiceId={params.id} />;
 };
 
 export default InvoicePage;

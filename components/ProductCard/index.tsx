@@ -55,7 +55,7 @@ const ProductCard: FC<IProductCard> = ({
     }
 
     if (isAdded && isSubsc) {
-      return addItem({
+      return increaseCountItem({
         id,
         title,
         count: count++,
@@ -79,7 +79,7 @@ const ProductCard: FC<IProductCard> = ({
       return addItem({
         id,
         title,
-        count,
+        count: count,
         isSubscription: true,
         price,
         period,

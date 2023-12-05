@@ -38,11 +38,13 @@ const Invoice = () => {
 
   const invoiceNumber = generateInvoiceId();
 
-  console.log(
-    products.items
-      .filter((product: any) => product.isSubscription)
-      .map((product: any) => product.id)
-  );
+  // console.log(
+  //   products.items
+  //     .filter((product: any) => product.isSubscription)
+  //     .map((product: any) => product.id)
+  // );
+
+  console.log(products.items);
 
   useEffect(() => {
     if (userData && products) {
@@ -77,6 +79,7 @@ const Invoice = () => {
               .map((product: any) => product.id),
           ],
           totalPrice: totalPrice,
+          counts: [...products.counts],
         })
       );
     }

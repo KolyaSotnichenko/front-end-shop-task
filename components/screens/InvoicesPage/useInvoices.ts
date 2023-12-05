@@ -7,7 +7,11 @@ import { ChangeEvent, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { toastr } from "react-redux-toastr";
 
-export const useInvoices = () => {
+interface IInvoice {
+  invoiceId?: string;
+}
+
+export const useInvoices = ({ invoiceId }: IInvoice) => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 500);
 
@@ -17,7 +21,7 @@ export const useInvoices = () => {
     setSearchTerm(e.target.value);
   };
 
-  const invoiceId = String(searchParams.get("id"));
+  // const invoiceId = String(searchParams.get(""));
 
   const queryData = useQuery(
     ["invoices list", debouncedSearch],
@@ -71,7 +75,7 @@ export const useInvoices = () => {
   );
 
   const invoiceData = useQuery("invoice data", () =>
-    InvoiceService.getById(invoiceId)
+    InvoiceService.getById(invoiceId!)
   );
 
   return useMemo(

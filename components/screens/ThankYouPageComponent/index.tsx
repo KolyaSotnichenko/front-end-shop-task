@@ -14,7 +14,7 @@ export const userFullData = signal({});
 const ThankYouPageComponent = () => {
   const router = useRouter();
 
-  const { createInvoiceAsync } = useInvoices();
+  const { createInvoiceAsync } = useInvoices({ invoiceId: "" });
 
   const invoiceData = getStoreLocal("invoice");
   const totalPrice = getStoreLocal("totalPrice");
@@ -26,6 +26,7 @@ const ThankYouPageComponent = () => {
       products: invoiceData.products,
       subscriptions: invoiceData.subscriptions,
       total: String(totalPrice),
+      counts: invoiceData.counts,
     }).then(() => {
       localStorage.removeItem("invoice");
       localStorage.removeItem("totalPrice");
@@ -34,7 +35,7 @@ const ThankYouPageComponent = () => {
   }, []);
 
   return (
-    <div>
+    <div className="h-full w-full flex flex-col items-center justify-center">
       <h1>Congratulations!</h1>
       <Button onClick={() => router.push("/dashboard")}>Go to dashboard</Button>
     </div>

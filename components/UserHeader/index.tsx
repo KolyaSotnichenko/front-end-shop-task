@@ -31,6 +31,8 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
     return Number(total) + curVal.count;
   }, 0);
 
+  const counts = items.map((item) => ({ [item.id]: { count: item.count } }));
+
   const handleOpenModal = () => {
     setIsOpenModal(!isOpenModal);
   };
@@ -63,7 +65,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   };
 
   return (
-    <div className="flex items-center justify-between space-y-2 p-4 border-b mb-4 sticky top-0">
+    <div className="flex items-center justify-between space-y-2 p-4 border-b mb-4 sticky top-0 z-10 bg-white">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">
           <Link href={homePage}>{logo}</Link>
@@ -153,7 +155,10 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
               disabled={items.length === 0}
               onClick={() => {
                 localStorage.setItem("totalPrice", String(totalPrice));
-                localStorage.setItem("products", JSON.stringify({ items }));
+                localStorage.setItem(
+                  "products",
+                  JSON.stringify({ items, counts })
+                );
                 setIsOpenModal(true);
               }}
               className="h-8 w-full"

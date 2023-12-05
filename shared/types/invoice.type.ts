@@ -10,6 +10,7 @@ export interface IInvoice {
   subscriptions: ISubscription[];
   total: string;
   createdAt: string;
+  counts: Object[];
 }
 
 export interface ICreateInvoice {
@@ -18,4 +19,5 @@ export interface ICreateInvoice {
   products: string[];
   subscriptions: string[];
   total: string;
+  counts: Object[];
 }
