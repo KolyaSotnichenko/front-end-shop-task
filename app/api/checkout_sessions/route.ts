@@ -9,10 +9,16 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const lineItems =
     items &&
     items.map(
-      (item: { id: string; title: string; count: number; price: string }) => {
+      (item: {
+        id: string;
+        title: string;
+        count: number;
+        price: string;
+        currencyType: string;
+      }) => {
         return {
           price_data: {
-            currency: "usd",
+            currency: String(item.currencyType),
             product_data: {
               name: item.title,
             },

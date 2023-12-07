@@ -77,8 +77,20 @@ const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
                 <Input id="image" type="text" {...createInput("image")} />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="price">Price</Label>
-                <Input id="price" type="text" {...createInput("price")} />
+                <Label htmlFor="price-usd">Price USD</Label>
+                <Input
+                  id="price-usd"
+                  type="text"
+                  {...createInput("price.usd")}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="price-eur">Price EUR</Label>
+                <Input
+                  id="price-eur"
+                  type="text"
+                  {...createInput("price.eur")}
+                />
               </div>
               {type === "subscription" && (
                 <div className="grid gap-2">

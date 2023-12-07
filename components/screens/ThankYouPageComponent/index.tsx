@@ -27,6 +27,7 @@ const ThankYouPageComponent = () => {
       subscriptions: invoiceData.subscriptions,
       total: String(totalPrice),
       counts: invoiceData.counts,
+      currency: invoiceData.currency,
     }).then(() => {
       localStorage.removeItem("invoice");
       localStorage.removeItem("totalPrice");

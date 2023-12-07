@@ -22,7 +22,7 @@ const AdminProductsPage: FC = () => {
         <AdminTable
           isLoading={isLoading}
           removeHandler={deleteAsync}
-          headerItems={["Image", "Title", "Description", "Price"]}
+          headerItems={["Image", "Title", "Description", "USD", "EUR"]}
           tableItems={data || []}
         />
       </div>

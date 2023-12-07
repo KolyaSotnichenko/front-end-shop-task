@@ -34,6 +34,8 @@ const ProductCard: FC<IProductCard> = ({
   const { addItem, increaseCountItem } = useActions();
   const { items } = useCart();
 
+  const currencyType = localStorage.getItem("currency");
+
   const handleAddToCart = (
     id: string,
     title: string,
@@ -51,6 +53,7 @@ const ProductCard: FC<IProductCard> = ({
         count: count++,
         isSubscription: isSubsc,
         price,
+        currencyType,
       });
     }
 
@@ -62,6 +65,7 @@ const ProductCard: FC<IProductCard> = ({
         isSubscription: isSubsc,
         price,
         period,
+        currencyType,
       });
     }
 
@@ -72,6 +76,7 @@ const ProductCard: FC<IProductCard> = ({
         count: count,
         isSubscription: false,
         price,
+        currencyType,
       });
     }
 
@@ -83,6 +88,7 @@ const ProductCard: FC<IProductCard> = ({
         isSubscription: true,
         price,
         period,
+        currencyType,
       });
     }
   };
@@ -104,7 +110,9 @@ const ProductCard: FC<IProductCard> = ({
               <CardTitle className="text-lg">{title}</CardTitle>
               {/* <CardDescription>{description}</CardDescription> */}
             </CardHeader>
-            <CardContent className="pt-6 text-slate-500">${price}</CardContent>
+            <CardContent className="pt-6 text-slate-500">
+              {currencyType === "usd" ? "USD" : "EUR"} {price}
+            </CardContent>
           </div>
           {period && (
             <Badge

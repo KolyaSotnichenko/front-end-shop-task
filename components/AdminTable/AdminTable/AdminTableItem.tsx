@@ -16,22 +16,6 @@ const AdminTableItem: FC<IAdminTableItem> = ({ removeHandler, tableItem }) => {
           )}
         </div>
       ))}
-
-      {/* {tableItem.items.map((value, index) => {
-        if (value.split("/")[0] === "https:") {
-          return (
-            <div className=" flex-1 w-4 h-4">
-              <Image key={index} fill src={value} alt="Image" />
-            </div>
-          );
-        } else {
-          return (
-            <div key={index} className="flex-1">
-              {value}
-            </div>
-          );
-        }
-      })} */}
       <AdminActions editId={tableItem._id} removeHandler={removeHandler} />
     </div>
   );

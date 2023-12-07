@@ -3,7 +3,10 @@ export interface IProduct {
   title: string;
   image: string;
   description: string;
-  price: number;
+  price: {
+    usd: number;
+    eur: number;
+  };
 
   createdAt: string;
 }
@@ -12,12 +15,18 @@ export interface ICreateProduct {
   title: string;
   description: string;
   image: string;
-  price: number;
+  price: {
+    usd: number;
+    eur: number;
+  };
 }
 
 export interface IUpdateProduct {
   title: string;
   description: string;
   image: string;
-  price: number;
+  price: {
+    usd: number;
+    eur: number;
+  };
 }

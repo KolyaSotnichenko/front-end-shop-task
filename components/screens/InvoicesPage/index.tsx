@@ -32,6 +32,8 @@ const InvoicesPageComponent = () => {
     item.items.filter((invoice: any) => invoice.invoiceUser === user?._id)
   );
 
+  const currencyType = localStorage.getItem("currency");
+
   return (
     <div className="flex justify-center items-center p-20">
       {filteredInvoices && filteredInvoices.length !== 0 ? (
@@ -80,7 +82,7 @@ const InvoicesPageComponent = () => {
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
-                    <TableCell>${invoice.invoiceTotal}</TableCell>
+                    <TableCell>{invoice.invoiceTotal}</TableCell>
                     <TableCell className="text-right">
                       {convertMongoDate(invoice.invoiceCreatedAt)}
                     </TableCell>

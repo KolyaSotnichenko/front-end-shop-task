@@ -31,7 +31,8 @@ export const useProducts = () => {
               product.image,
               product.title,
               product.description,
-              product.price.toString(),
+              product.price.usd.toString(),
+              product.price.eur.toString(),
             ],
           })
         ),

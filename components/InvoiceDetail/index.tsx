@@ -6,6 +6,8 @@ import { convertMongoDate } from "@/lib/convertMongoDate";
 const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
   const { invoiceData } = useInvoices({ invoiceId });
 
+  const currencyType = localStorage.getItem("currency");
+
   return (
     <>
       {invoiceData.data?.data && (
@@ -86,13 +88,15 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                             scope="col"
                             className="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell"
                           >
-                            Rate
+                            Rate{" "}
+                            {invoiceData.data?.data?.currency?.toUpperCase()}
                           </th>
                           <th
                             scope="col"
                             className="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0"
                           >
-                            Amount
+                            Amount{" "}
+                            {invoiceData.data?.data?.currency?.toUpperCase()}
                           </th>
                         </tr>
                       </thead>
@@ -118,14 +122,18 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                                   )}
                                 </td>
                                 <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                                  ${product.price}
+                                  {currencyType === "usd"
+                                    ? product.price.usd
+                                    : product.price.eur}
                                 </td>
                                 <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                                  $
                                   {invoiceData?.data?.data?.counts.map(
                                     (item: any) =>
                                       item[product._id]?.count &&
-                                      item[product._id]?.count * product.price
+                                      item[product._id]?.count *
+                                        (currencyType === "usd"
+                                          ? product.price.usd
+                                          : product.price.eur)
                                   )}
                                 </td>
                               </tr>
@@ -152,14 +160,18 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                                   )}
                                 </td>
                                 <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                                  ${product.price}
+                                  {currencyType === "usd"
+                                    ? product.price.usd
+                                    : product.price.eur}
                                 </td>
                                 <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                                  $
                                   {invoiceData?.data?.data?.counts.map(
                                     (item: any) =>
                                       item[product._id]?.count &&
-                                      item[product._id]?.count * product.price
+                                      item[product._id]?.count *
+                                        (currencyType === "usd"
+                                          ? product.price.usd
+                                          : product.price.eur)
                                   )}
                                 </td>
                               </tr>
@@ -182,7 +194,7 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                             Subtotal
                           </th>
                           <td className="pt-6 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                            ${invoiceData.data?.data.total}
+                            {invoiceData.data?.data.total}
                           </td>
                         </tr>
                         {/* <tr>
@@ -218,7 +230,7 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                             Tax
                           </th>
                           <td className="pt-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                            $0.00
+                            0.00
                           </td>
                         </tr>
                         <tr>
@@ -236,7 +248,7 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
                             Total
                           </th>
                           <td className="pt-4 pl-3 pr-4 text-sm font-normal text-right text-slate-700 sm:pr-6 md:pr-0">
-                            ${invoiceData.data?.data.total}
+                            {invoiceData.data?.data.total}
                           </td>
                         </tr>
                       </tfoot>

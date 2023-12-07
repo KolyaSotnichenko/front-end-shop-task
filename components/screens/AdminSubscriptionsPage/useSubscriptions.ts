@@ -35,7 +35,8 @@ export const useSubscriptions = () => {
               subscription.title,
               subscription.description,
               subscription.period,
-              subscription.price.toString(),
+              subscription.price.usd.toString(),
+              subscription.price.eur.toString(),
             ],
           })
         ),
@@ -56,7 +57,14 @@ export const useSubscriptions = () => {
 
   const { mutateAsync: createSubscriptionAsync } = useMutation(
     "create subscription",
-    (data: ICreateSubscription) => SubscriptionService.createSubscription(data),
+    (data: ICreateSubscription) =>
+      SubscriptionService.createSubscription({
+        title: data.title,
+        description: data.description,
+        price: { usd: data.price.usd, eur: data.price.eur },
+        image: data.image,
+        period: data.period,
+      }),
     {
       onError: (error) => {
         toastError(error, "Subscription list");

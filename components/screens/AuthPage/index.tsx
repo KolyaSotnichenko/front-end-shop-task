@@ -15,11 +15,9 @@ import { useActions } from "@/hooks/useActions";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IAuthInput } from "./auth.interface";
-import { useRouter } from "next/navigation";
 
 const AuthPage = () => {
   const { login, register } = useActions();
-  const router = useRouter();
 
   const [type, setType] = useState<"login" | "register">("login");
 
@@ -33,11 +31,13 @@ const AuthPage = () => {
 
   const handleLoginSubmit = (data: IAuthInput) => {
     login(data);
+    localStorage.setItem("currency", "usd");
     reset();
   };
 
   const handleRegisterSubmit = (data: IAuthInput) => {
     register(data);
+    localStorage.setItem("currency", "usd");
     reset();
   };
 

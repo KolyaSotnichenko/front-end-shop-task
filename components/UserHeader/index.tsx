@@ -23,6 +23,8 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   const { increaseCountItem, decreaseCountItem, removeItem } = useActions();
   const { items } = useCart();
 
+  const currencyType = localStorage.getItem("currency");
+
   const totalPrice = items.reduce((total: any, curVal: any) => {
     return Number(total) + Number(curVal.price) * curVal.count;
   }, 0);
@@ -101,7 +103,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
                 <div className="flex items-center justify-around text-xs border-b border-b-black">
                   <p>Title</p>
                   <p>Count</p>
-                  <p>Price</p>
+                  <p>Price {currencyType === "usd" ? "USD" : "EUR"}</p>
                 </div>
                 {items.map((item: any) => (
                   <div
@@ -137,7 +139,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
                     </div>
                     <div className="flex flex-1 items-center gap-x-2">
                       <p className="flex-1 w-full text-right text-xs text-gray-400">
-                        ${item.price}
+                        {item.price}
                       </p>
                       <Trash2
                         className="w-3 h-3 cursor-pointer"
@@ -149,7 +151,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
               </div>
             )}
             <p className="text-sm">
-              Total price: ${totalPrice ? totalPrice : 0}
+              Total price: {totalPrice ? totalPrice : 0}
             </p>
             <Button
               disabled={items.length === 0}

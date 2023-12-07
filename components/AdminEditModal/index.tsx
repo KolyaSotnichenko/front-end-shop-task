@@ -136,16 +136,32 @@ const AdminEditModal: FC<{
               )}
               {(type === "product" || type === "subscription") && (
                 <div className="grid gap-2">
-                  <Label htmlFor="price">Price</Label>
+                  <Label htmlFor="price-usd">Price USD</Label>
                   <Input
-                    id="price"
+                    id="price-usd"
                     placeholder={
                       type === "product"
-                        ? String(productData.data?.data.price)
-                        : String(subscriptionData.data?.data.price)
+                        ? String(productData.data?.data.price.usd)
+                        : String(subscriptionData.data?.data.price.usd)
                     }
                     type="text"
-                    {...updateInput("price")}
+                    {...updateInput("price.usd")}
+                  />
+                </div>
+              )}
+
+              {(type === "product" || type === "subscription") && (
+                <div className="grid gap-2">
+                  <Label htmlFor="price-eur">Price EUR</Label>
+                  <Input
+                    id="price-eur"
+                    placeholder={
+                      type === "product"
+                        ? String(productData.data?.data.price.eur)
+                        : String(subscriptionData.data?.data.price.eur)
+                    }
+                    type="text"
+                    {...updateInput("price.eur")}
                   />
                 </div>
               )}

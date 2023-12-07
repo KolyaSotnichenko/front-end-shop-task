@@ -14,6 +14,8 @@ const Invoice = () => {
 
   const products = getStoreLocal("products");
 
+  const currencyType = localStorage.getItem("currency");
+
   const { addInvoice } = useActions();
 
   const totalPrice = products.items.reduce((total: any, curVal: any) => {
@@ -80,6 +82,7 @@ const Invoice = () => {
           ],
           totalPrice: totalPrice,
           counts: [...products.counts],
+          currency: currencyType,
         })
       );
     }
@@ -160,13 +163,13 @@ const Invoice = () => {
                           scope="col"
                           className="hidden py-3.5 px-3 text-right text-sm font-normal text-slate-700 sm:table-cell"
                         >
-                          Rate
+                          Rate {currencyType === "usd" ? "USD" : "EUR"}
                         </th>
                         <th
                           scope="col"
                           className="py-3.5 pl-3 pr-4 text-right text-sm font-normal text-slate-700 sm:pr-6 md:pr-0"
                         >
-                          Amount
+                          Amount {currencyType === "usd" ? "USD" : "EUR"}
                         </th>
                       </tr>
                     </thead>
@@ -189,10 +192,10 @@ const Invoice = () => {
                               {product.count}
                             </td>
                             <td className="hidden px-3 py-4 text-sm text-right text-slate-500 sm:table-cell">
-                              ${product.price}
+                              {product.price}
                             </td>
                             <td className="py-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                              ${product.price * product.count}
+                              {product.price * product.count}
                             </td>
                           </tr>
                         ))}
@@ -213,7 +216,7 @@ const Invoice = () => {
                           Subtotal
                         </th>
                         <td className="pt-6 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                          ${totalPrice}
+                          {totalPrice}
                         </td>
                       </tr>
                       {/* <tr>
@@ -249,7 +252,7 @@ const Invoice = () => {
                           Tax
                         </th>
                         <td className="pt-4 pl-3 pr-4 text-sm text-right text-slate-500 sm:pr-6 md:pr-0">
-                          $0.00
+                          0.00
                         </td>
                       </tr>
                       <tr>
@@ -267,7 +270,7 @@ const Invoice = () => {
                           Total
                         </th>
                         <td className="pt-4 pl-3 pr-4 text-sm font-normal text-right text-slate-700 sm:pr-6 md:pr-0">
-                          ${totalPrice}
+                          {totalPrice}
                         </td>
                       </tr>
                     </tfoot>

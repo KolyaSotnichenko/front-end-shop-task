@@ -6,6 +6,8 @@ import { useSubscriptions } from "../AdminSubscriptionsPage/useSubscriptions";
 const UserSubscriptionsPage = () => {
   const { data } = useSubscriptions();
 
+  const currencyType = localStorage.getItem("currency");
+
   return (
     <div className=" flex items-center justify-center h-full w-full">
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 place-items-center">
@@ -18,7 +20,7 @@ const UserSubscriptionsPage = () => {
                 description={item.items[2]}
                 image={item.items[0]}
                 period={item.items[3]}
-                price={item.items[4]}
+                price={currencyType === "usd" ? item.items[4] : item.items[5]}
               />
             </div>
           ))}

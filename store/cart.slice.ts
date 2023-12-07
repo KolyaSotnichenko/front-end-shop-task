@@ -6,9 +6,10 @@ interface IInitialState {
     id: string;
     title: string;
     count: number;
-    price: string;
+    price: number;
     isSubscription: boolean;
     period?: string;
+    currency: string;
   }[];
 }
 

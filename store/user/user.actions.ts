@@ -11,6 +11,7 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
     try {
       const response = await AuthService.register(email, password);
       toastr.success("Registration", "Completed successfully");
+      localStorage.setItem("currency", response.data.user.currency);
       return response.data;
     } catch (error) {
       toastError(error);
@@ -25,6 +26,7 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
     try {
       const response = await AuthService.login(email, password);
       toastr.success("Login", "Completed successfully");
+      localStorage.setItem("currency", response.data.user.currency);
       return response.data;
     } catch (error) {
       toastError(error);

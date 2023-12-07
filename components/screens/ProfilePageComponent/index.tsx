@@ -39,6 +39,7 @@ const ProfilePageComponent = () => {
     currency?: string;
   }) => {
     updateProfileAsync(data);
+    localStorage.setItem("currency", data.currency!);
     reset();
   };
 
@@ -102,7 +103,6 @@ const ProfilePageComponent = () => {
                     )}
                     <option value="eur">EUR</option>
                     <option value="usd">USD</option>
-                    <option value="uah">UAH</option>
                   </select>
                 </div>
               </div>

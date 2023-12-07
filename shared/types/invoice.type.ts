@@ -11,6 +11,7 @@ export interface IInvoice {
   total: string;
   createdAt: string;
   counts: Object[];
+  currency: string;
 }
 
 export interface ICreateInvoice {
@@ -20,4 +21,5 @@ export interface ICreateInvoice {
   subscriptions: string[];
   total: string;
   counts: Object[];
+  currency: string;
 }
