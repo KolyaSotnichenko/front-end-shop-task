@@ -93,12 +93,11 @@ const ProfilePageComponent = () => {
                     className="w-full cursor-pointer"
                     {...updateInput("currency")}
                   >
-                    {profileData.data?.data.currency && (
-                      <option value={profileData.data?.data.currency}>
-                        {profileData.data?.data.currency.toUpperCase()}
+                    {profileData.data?.data?.currency ? (
+                      <option value={profileData.data.data.currency}>
+                        {profileData.data.data.currency.toUpperCase()}
                       </option>
-                    )}
-                    {!profileData.data?.data.currency && (
+                    ) : (
                       <option value="">Select currency...</option>
                     )}
                     <option value="eur">EUR</option>

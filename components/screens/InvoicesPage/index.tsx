@@ -21,6 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { getStoreLocal } from "@/lib/local-storage";
+import React from "react";
 
 const InvoicesPageComponent = () => {
   const { data } = useInvoices({ invoiceId: "" });
@@ -49,8 +50,8 @@ const InvoicesPageComponent = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredInvoices?.map((item) => (
-              <>
+            {filteredInvoices?.map((item, index) => (
+              <React.Fragment key={index}>
                 {item.map((invoice: any) => (
                   <TableRow key={invoice.invoiceNumber}>
                     <TableCell
@@ -74,7 +75,10 @@ const InvoicesPageComponent = () => {
                               ...invoice.invoiceProducts,
                               ...invoice.invoiceSubscriptions,
                             ].map((product: { title: string }) => (
-                              <DropdownMenuRadioItem value="">
+                              <DropdownMenuRadioItem
+                                key={product.title}
+                                value=""
+                              >
                                 {product.title}
                               </DropdownMenuRadioItem>
                             ))}
@@ -88,7 +92,7 @@ const InvoicesPageComponent = () => {
                     </TableCell>
                   </TableRow>
                 ))}
-              </>
+              </React.Fragment>
             ))}
           </TableBody>
           {/* <TableFooter>

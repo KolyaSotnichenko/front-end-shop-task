@@ -16,7 +16,7 @@ export const useProducts = () => {
 
   const searchParams = useSearchParams();
 
-  const productId = String(searchParams.get("id"));
+  const productId = String(searchParams.get("id") || "");
 
   const queryData = useQuery(
     ["products list", debouncedSearch],
@@ -62,8 +62,10 @@ export const useProducts = () => {
     }
   );
 
-  const productData = useQuery("product data", () =>
-    ProductService.getById(productId)
+  const productData = useQuery(
+    "product data",
+    () => ProductService.getById(productId),
+    { enabled: !!productId }
   );
 
   const productDataById = async (id: string) => {

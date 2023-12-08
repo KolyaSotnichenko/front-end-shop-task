@@ -77,8 +77,10 @@ const AdminEditModal: FC<{
               )}
               {type === "user" && (
                 <div className="grid gap-2">
+                  <Label htmlFor="isAdmin">Is Admin?</Label>
                   <div className="items-top flex space-x-2">
                     <select
+                      id="isAdmin"
                       className="w-full cursor-pointer"
                       {...updateInput("isAdmin")}
                     >

@@ -2,6 +2,8 @@
 
 import { useInvoices } from "../screens/InvoicesPage/useInvoices";
 import { convertMongoDate } from "@/lib/convertMongoDate";
+import { Button } from "../ui/button";
+import { SaveAsPDFHandler } from "@/lib/saveToPDF";
 
 const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
   const { invoiceData } = useInvoices({ invoiceId });
@@ -10,6 +12,9 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
 
   return (
     <>
+      <div className="w-full flex items-center justify-center">
+        <Button onClick={() => SaveAsPDFHandler("print")}>Save to PDF</Button>
+      </div>
       {invoiceData.data?.data && (
         <section id="print">
           <div className="max-w-5xl mx-auto py-6 bg-white">

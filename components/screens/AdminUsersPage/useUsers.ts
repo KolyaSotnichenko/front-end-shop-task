@@ -18,7 +18,7 @@ export const useUsers = () => {
 
   const searchParams = useSearchParams();
 
-  const userId = String(searchParams.get("id"));
+  const userId = String(searchParams.get("id") || "");
 
   const queryData = useQuery(
     ["users list", debouncedSearch],
@@ -53,6 +53,10 @@ export const useUsers = () => {
       UserService.updateUser(userId, {
         email: data.email,
         isAdmin: data.isAdmin === "true" ? true : false,
+        currency: data.currency,
+        address: data.address,
+        organization: data.organization,
+        password: data.password,
       }),
     {
       onError: (error) => {
@@ -81,19 +85,15 @@ export const useUsers = () => {
     }
   );
 
-  const userData = useQuery("user data", () => UserService.getById(userId));
+  const userData = useQuery("user data", () => UserService.getById(userId), {
+    enabled: !!userId,
+  });
 
   const profileData = useQuery("profile data", () => UserService.getProfile());
 
   const { mutateAsync: updateProfileAsync } = useMutation(
     "update profile",
-    (data: {
-      email?: string;
-      password?: string;
-      address?: string;
-      organization?: string;
-      currency?: string;
-    }) =>
+    (data: IUpdateUser) =>
       UserService.updateProfile({
         email: data.email,
         password: data.password,

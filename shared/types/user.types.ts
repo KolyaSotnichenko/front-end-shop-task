@@ -18,5 +18,9 @@ export interface IUser {
 
 export interface IUpdateUser {
   email?: string;
+  password?: string;
   isAdmin?: string | boolean;
+  currency?: string;
+  address?: string;
+  organization?: string;
 }

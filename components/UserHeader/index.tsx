@@ -86,13 +86,6 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
-            {/* <DropdownMenuLabel className="font-normal">
-              <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">
-                  You products: 0
-                </p>
-              </div>
-            </DropdownMenuLabel> */}
             {items.length === 0 && (
               <div className="flex flex-col items-center justify-center min-h-[200px]">
                 <p className="text-center text-gray-400">No products!</p>

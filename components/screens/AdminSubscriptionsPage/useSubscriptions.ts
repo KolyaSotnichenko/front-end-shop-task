@@ -19,7 +19,7 @@ export const useSubscriptions = () => {
 
   const searchParams = useSearchParams();
 
-  const subscriptionId = String(searchParams.get("id"));
+  const subscriptionId = String(searchParams.get("id") || "");
 
   const queryData = useQuery(
     ["subscriptions list", debouncedSearch],
@@ -51,8 +51,10 @@ export const useSubscriptions = () => {
     setSearchTerm(e.target.value);
   };
 
-  const subscriptionData = useQuery("subscription data", () =>
-    SubscriptionService.getById(subscriptionId)
+  const subscriptionData = useQuery(
+    "subscription data",
+    () => SubscriptionService.getById(subscriptionId),
+    { enabled: !!subscriptionId }
   );
 
   const { mutateAsync: createSubscriptionAsync } = useMutation(

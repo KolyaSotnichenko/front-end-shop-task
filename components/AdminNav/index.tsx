@@ -40,15 +40,15 @@ export function AdminNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
+          <DropdownMenuItem>
+            <Link href="/admin-dashboard">Users</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="/admin-dashboard/products">Products</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <Link href="/admin-dashboard/subscriptions">Subscriptions</Link>
           </DropdownMenuItem>
-          {/* <DropdownMenuItem>Billing</DropdownMenuItem> */}
-          {/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logout}>Log out</DropdownMenuItem>
