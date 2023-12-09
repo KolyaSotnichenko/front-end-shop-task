@@ -13,7 +13,13 @@ const InvoiceDetail = ({ invoiceId }: { invoiceId: string }) => {
   return (
     <>
       <div className="w-full flex items-center justify-center">
-        <Button onClick={() => SaveAsPDFHandler("print")}>Save to PDF</Button>
+        <Button
+          onClick={() =>
+            SaveAsPDFHandler("print", invoiceData.data?.data.invoiceNumber!)
+          }
+        >
+          Save to PDF
+        </Button>
       </div>
       {invoiceData.data?.data && (
         <section id="print">

@@ -1,7 +1,7 @@
 import { toPng } from "html-to-image";
 import { jsPDF } from "jspdf";
 
-export const SaveAsPDFHandler = (elementId: string) => {
+export const SaveAsPDFHandler = (elementId: string, invoiceNumber: string) => {
   const element = document.getElementById(elementId);
 
   if (!element) {
@@ -76,7 +76,7 @@ export const SaveAsPDFHandler = (elementId: string) => {
         }
 
         // Save the PDF
-        pdf.save(`invoice.pdf`);
+        pdf.save(`invoice-${invoiceNumber}.pdf`);
       };
     })
     .catch((error) => {
