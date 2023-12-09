@@ -1,40 +1,35 @@
 import { useDebounce } from "@/hooks/useDebounde";
 import { toastError } from "@/lib/toast-error";
 import { InvoiceService } from "@/services/invoice.service";
-import { ICreateInvoice } from "@/shared/types/invoice.type";
-import { useSearchParams } from "next/navigation";
+import { ICreateInvoice, IInvoice } from "@/shared/types/invoice.type";
 import { ChangeEvent, useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { toastr } from "react-redux-toastr";
 
-interface IInvoice {
+interface IInvoiceID {
   invoiceId?: string;
 }
 
-export const useInvoices = ({ invoiceId }: IInvoice) => {
+export const useInvoices = ({ invoiceId }: IInvoiceID) => {
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearch = useDebounce(searchTerm, 500);
-
-  const searchParams = useSearchParams();
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-
-  // const invoiceId = String(searchParams.get(""));
 
   const queryData = useQuery(
     ["invoices list", debouncedSearch],
     () => InvoiceService.getAll(debouncedSearch),
     {
       select: ({ data }) =>
-        data.map((invoice): { _id: string; items: {}[] } => ({
+        data.map((invoice: IInvoice) => ({
           _id: invoice._id,
           items: [
             {
               invoiceId: invoice._id,
               invoiceNumber: invoice.invoiceNumber,
-              invoiceUser: invoice.user._id,
+              invoiceUser: invoice.user?._id,
               invoiceCreatedAt: invoice.createdAt,
               invoiceProducts: [
                 ...invoice.products.map((product) => {
