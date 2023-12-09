@@ -2,7 +2,7 @@
 
 import { signal } from "@preact/signals-react";
 import { Button } from "@/components/ui/button";
-import { useInvoices } from "../InvoicesPage/useInvoices";
+import { useInvoices } from "../../../hooks/useInvoices";
 import { useEffect, useRef } from "react";
 import { getStoreLocal } from "@/lib/local-storage";
 import Link from "next/link";

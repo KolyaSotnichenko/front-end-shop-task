@@ -12,8 +12,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { ICreateProduct } from "@/shared/types/product.types";
-import { useProducts } from "../screens/AdminProductsPage/useProducts";
-import { useSubscriptions } from "../screens/AdminSubscriptionsPage/useSubscriptions";
+import { useProducts } from "../../hooks/useProducts";
+import { useSubscriptions } from "../../hooks/useSubscriptions";
 import { ICreateSubscription } from "@/shared/types/subscription.types";
 import { PlusCircle } from "lucide-react";
 

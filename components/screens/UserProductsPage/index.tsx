@@ -1,7 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/ProductCard";
-import { useProducts } from "../AdminProductsPage/useProducts";
+import { useProducts } from "../../../hooks/useProducts";
 
 const UserProductsPage = () => {
   const { data } = useProducts();

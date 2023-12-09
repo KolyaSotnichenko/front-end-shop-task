@@ -3,7 +3,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import UserProductsPage from "../UserProductsPage";
 import UserSubscriptionsPage from "../UserSubscriptionsPage";
-import { useUsers } from "../AdminUsersPage/useUsers";
+import { useUsers } from "../../../hooks/useUsers";
 import { useEffect } from "react";
 
 const DashboardPageComponent = () => {

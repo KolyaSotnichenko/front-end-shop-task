@@ -1,7 +1,7 @@
 "use client";
 import AdminHeader from "@/components/AdminHeader";
 import { FC } from "react";
-import { useUsers } from "./useUsers";
+import { useUsers } from "../../../hooks/useUsers";
 import AdminTable from "@/components/AdminTable/AdminTable/AdminTable";
 
 const AdminUsersPage: FC = () => {

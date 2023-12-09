@@ -1,4 +1,3 @@
-// import { IProfileInput } from "@/components/screens/profile/profile.interface"
 import { getUsersUrl } from "@/config/api.config";
 import { IUpdateUser, IUser } from "@/shared/types/user.types";
 import axios from "@/api/interceptors";

@@ -3,7 +3,7 @@
 import AdminHeader from "@/components/AdminHeader";
 import AdminTable from "@/components/AdminTable/AdminTable/AdminTable";
 import { FC } from "react";
-import { useProducts } from "./useProducts";
+import { useProducts } from "../../../hooks/useProducts";
 
 const AdminProductsPage: FC = () => {
   const { searchTerm, isLoading, handleSearch, deleteAsync, data } =

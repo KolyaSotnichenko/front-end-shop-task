@@ -1,7 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/ProductCard";
-import { useSubscriptions } from "../AdminSubscriptionsPage/useSubscriptions";
+import { useSubscriptions } from "../../../hooks/useSubscriptions";
 
 const UserSubscriptionsPage = () => {
   const { data } = useSubscriptions();

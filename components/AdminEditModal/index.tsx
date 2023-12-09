@@ -12,13 +12,13 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { ICreateProduct } from "@/shared/types/product.types";
-import { useProducts } from "../screens/AdminProductsPage/useProducts";
-import { useSubscriptions } from "../screens/AdminSubscriptionsPage/useSubscriptions";
+import { useProducts } from "../../hooks/useProducts";
+import { useSubscriptions } from "../../hooks/useSubscriptions";
 import { ICreateSubscription } from "@/shared/types/subscription.types";
 import { Edit } from "lucide-react";
 import { IUpdateUser } from "@/shared/types/user.types";
 import { useRouter } from "next/navigation";
-import { useUsers } from "../screens/AdminUsersPage/useUsers";
+import { useUsers } from "../../hooks/useUsers";
 
 const AdminEditModal: FC<{
   text?: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useInvoices } from "../screens/InvoicesPage/useInvoices";
+import { useInvoices } from "../../hooks/useInvoices";
 import { convertMongoDate } from "@/lib/convertMongoDate";
 import { Button } from "../ui/button";
 import { SaveAsPDFHandler } from "@/lib/saveToPDF";

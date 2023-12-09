@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useInvoices } from "./useInvoices";
+import { useInvoices } from "../../../hooks/useInvoices";
 import { convertMongoDate } from "@/lib/convertMongoDate";
 import {
   DropdownMenu,
