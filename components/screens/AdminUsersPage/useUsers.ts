@@ -1,5 +1,6 @@
 import { ITableItem } from "@/components/AdminTable/AdminTable/admin-table.interface";
 import { getAdminUrl } from "@/config/url.config";
+import { useAuth } from "@/hooks/useAuth";
 import { useDebounce } from "@/hooks/useDebounde";
 // import { convertMongoDate } from "@/lib/convertMongoDate";
 import { toastError } from "@/lib/toast-error";
@@ -17,6 +18,8 @@ export const useUsers = () => {
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   const searchParams = useSearchParams();
+
+  const { user } = useAuth();
 
   const userId = String(searchParams.get("id") || "");
 
@@ -40,6 +43,7 @@ export const useUsers = () => {
       onError: (error) => {
         toastError(error, "User list");
       },
+      enabled: !!user?.isAdmin,
     }
   );
 

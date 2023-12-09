@@ -2,18 +2,16 @@
 
 import { signal } from "@preact/signals-react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { useInvoices } from "../InvoicesPage/useInvoices";
 import { useEffect, useRef } from "react";
 import { getStoreLocal } from "@/lib/local-storage";
+import Link from "next/link";
 
 export const invoice = signal({});
 
 export const userFullData = signal({});
 
 const ThankYouPageComponent = () => {
-  const router = useRouter();
-
   const { createInvoiceAsync } = useInvoices({ invoiceId: "" });
 
   const invoiceData = getStoreLocal("invoice");
@@ -45,9 +43,9 @@ const ThankYouPageComponent = () => {
     <div className="h-[100vh] w-[100vw] flex items-center justify-center">
       <div className=" flex flex-col items-center justify-center">
         <h1>Congratulations!</h1>
-        <Button onClick={() => router.push("/dashboard")}>
-          Go to dashboard
-        </Button>
+        <Link href="/dashboard">
+          <Button>Go to dashboard</Button>
+        </Link>
       </div>
     </div>
   );
