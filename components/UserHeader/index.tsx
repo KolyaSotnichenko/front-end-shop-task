@@ -23,7 +23,11 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   const { increaseCountItem, decreaseCountItem, removeItem } = useActions();
   const { items } = useCart();
 
-  const currencyType = localStorage.getItem("currency");
+  let currencyType: string = "";
+
+  if (typeof window !== "undefined") {
+    currencyType = localStorage.getItem("currency")!;
+  }
 
   const totalPrice = items.reduce((total: any, curVal: any) => {
     return Number(total) + Number(curVal.price) * curVal.count;

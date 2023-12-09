@@ -6,7 +6,11 @@ import { useSubscriptions } from "../../../hooks/useSubscriptions";
 const UserSubscriptionsPage = () => {
   const { data } = useSubscriptions();
 
-  const currencyType = localStorage.getItem("currency");
+  let currencyType: string = "";
+
+  if (typeof window !== "undefined") {
+    currencyType = localStorage.getItem("currency")!;
+  }
 
   return (
     <div className=" flex items-center justify-center h-full w-full">

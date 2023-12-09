@@ -1,7 +1,7 @@
 import { IUser } from "@/shared/types/user.types";
 
 export interface IUserState {
-  id: string;
+  _id: string;
   email: string;
   isAdmin: boolean;
   isActive: boolean;

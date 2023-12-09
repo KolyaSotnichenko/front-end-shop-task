@@ -6,7 +6,11 @@ import { useProducts } from "../../../hooks/useProducts";
 const UserProductsPage = () => {
   const { data } = useProducts();
 
-  const currencyType = localStorage.getItem("currency");
+  let currencyType: string = "";
+
+  if (typeof window !== "undefined") {
+    currencyType = localStorage.getItem("currency")!;
+  }
 
   return (
     <div className=" flex items-center justify-center h-full w-full">
