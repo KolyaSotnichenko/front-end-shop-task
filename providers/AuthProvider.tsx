@@ -10,8 +10,9 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (user && !user.isAdmin && pathname === "/") router.push("/dashboard");
-    if (user && user.isAdmin && pathname === "/")
+    if (user && user.isActive && !user.isAdmin && pathname === "/")
+      router.push("/dashboard");
+    if (user && user.isActive && user.isAdmin && pathname === "/")
       router.push("/admin-dashboard");
     if (!user) router.push("/");
   }, [user]);

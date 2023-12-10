@@ -4,7 +4,7 @@ export interface IUserState {
   _id: string;
   email: string;
   isAdmin: boolean;
-  isActive: boolean;
+  isActive: boolean | string;
 }
 
 export interface ITokens {
@@ -23,8 +23,5 @@ export interface IEmailPassword {
 }
 
 export interface IAuthResponse extends ITokens {
-  user: IUser & {
-    isAdmin: boolean;
-    isActive: boolean;
-  };
+  user: IUser;
 }

@@ -20,6 +20,7 @@ export interface IUpdateUser {
   email?: string;
   password?: string;
   isAdmin?: string | boolean;
+  isActive?: boolean | string;
   currency?: string;
   address?: string;
   organization?: string;

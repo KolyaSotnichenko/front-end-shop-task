@@ -56,6 +56,7 @@ export const useUsers = () => {
       UserService.updateUser(userId, {
         email: data.email,
         isAdmin: data.isAdmin === "true" ? true : false,
+        isActive: data.isActive === "true" ? true : false,
         currency: data.currency,
         address: data.address,
         organization: data.organization,

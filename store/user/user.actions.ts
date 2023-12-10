@@ -4,6 +4,8 @@ import { AuthService } from "@/services/auth/auth.service";
 import { toastr } from "react-redux-toastr";
 import { toastError } from "@/lib/toast-error";
 import { errorCatch } from "@/api/api.helpers";
+import { IUser } from "@/shared/types/user.types";
+import { getStoreLocal } from "@/lib/local-storage";
 
 export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
   "auth/register",
@@ -11,7 +13,8 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
     try {
       const response = await AuthService.register(email, password);
       toastr.success("Registration", "Completed successfully");
-      localStorage.setItem("currency", response.data.user.currency);
+      const user: IUser = getStoreLocal("user");
+      localStorage.setItem("currency", user.currency);
       return response.data;
     } catch (error) {
       toastError(error);
@@ -25,8 +28,15 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
   async ({ email, password }, thunkApi) => {
     try {
       const response = await AuthService.login(email, password);
-      toastr.success("Login", "Completed successfully");
-      localStorage.setItem("currency", response.data.user.currency);
+
+      const user: IUser = getStoreLocal("user");
+
+      if (user && user.isActive) {
+        toastr.success("Login", "Completed successfully");
+      } else {
+        toastError("Login", "Your account has banned!");
+      }
+      localStorage.setItem("currency", user.currency);
       return response.data;
     } catch (error) {
       toastError(error);

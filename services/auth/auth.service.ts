@@ -1,5 +1,4 @@
 import { getAuthUrl } from "@/config/api.config";
-import { register } from "@/store/user/user.actions";
 import { IAuthResponse } from "@/store/user/user.interface";
 import { axiosClassic } from "@/api/interceptors";
 import { removeTokensStorage, saveToStorage } from "./auth.helper";

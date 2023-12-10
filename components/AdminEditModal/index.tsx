@@ -91,6 +91,22 @@ const AdminEditModal: FC<{
                   </div>
                 </div>
               )}
+              {type === "user" && (
+                <div className="grid gap-2">
+                  <Label htmlFor="isActive">Is Active?</Label>
+                  <div className="items-top flex space-x-2">
+                    <select
+                      id="isActive"
+                      className="w-full cursor-pointer"
+                      {...updateInput("isActive")}
+                    >
+                      <option value="">Select...</option>
+                      <option value="true">True</option>
+                      <option value="false">False</option>
+                    </select>
+                  </div>
+                </div>
+              )}
               {(type === "product" || type === "subscription") && (
                 <div className="grid gap-2">
                   <Label htmlFor="title">Title</Label>
