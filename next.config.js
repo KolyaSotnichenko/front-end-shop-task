@@ -9,7 +9,7 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["asset.cloudinary.com", "images.unsplash.com"],
+    domains: ["localhost", "images.unsplash.com"],
   },
 
   async rewrites() {

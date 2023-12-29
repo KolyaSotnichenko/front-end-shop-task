@@ -11,12 +11,13 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { ICreateProduct } from "@/shared/types/product.types";
 import { useProducts } from "../../hooks/useProducts";
 import { useSubscriptions } from "../../hooks/useSubscriptions";
 import { ICreateSubscription } from "@/shared/types/subscription.types";
 import { PlusCircle } from "lucide-react";
+import UploadField from "./UploadField";
 
 const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
   const { createProductAsync } = useProducts();
@@ -26,6 +27,7 @@ const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
     register: createInput,
     handleSubmit,
     reset,
+    control,
   } = useForm<ICreateProduct | ICreateSubscription>({
     mode: "onChange",
   });
@@ -74,8 +76,22 @@ const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="image">Image Url</Label>
-                <Input id="image" type="text" {...createInput("image")} />
+                <Controller
+                  control={control}
+                  name="image"
+                  defaultValue="Select file"
+                  render={({ field: { onChange } }) => (
+                    <UploadField
+                      onChange={onChange}
+                      // value={value}
+                      folder={type === "product" ? "products" : "subscriptions"}
+                      placeholder="Image"
+                    />
+                  )}
+                  rules={{
+                    required: "Photo is required!",
+                  }}
+                />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="price-usd">Price USD</Label>
