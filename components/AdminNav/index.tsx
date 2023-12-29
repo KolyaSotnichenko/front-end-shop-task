@@ -41,6 +41,9 @@ export function AdminNav() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
+            <Link href="/admin-dashboard/profile">Profile</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <Link href="/admin-dashboard">Users</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>

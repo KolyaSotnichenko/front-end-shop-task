@@ -13,9 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../../../hooks/useUsers";
+import { useAuth } from "@/hooks/useAuth";
 
 const ProfilePageComponent = () => {
   const { profileData, updateProfileAsync } = useUsers();
+  const { user } = useAuth();
 
   const {
     register: updateInput,
@@ -24,9 +26,9 @@ const ProfilePageComponent = () => {
   } = useForm<{
     email: string;
     password: string;
-    organization: string;
-    address: string;
-    currency: string;
+    organization?: string;
+    address?: string;
+    currency?: string;
   }>({
     mode: "onChange",
   });
@@ -68,43 +70,49 @@ const ProfilePageComponent = () => {
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="text" {...updateInput("password")} />
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="address">Address</Label>
-                <Input
-                  id="address"
-                  placeholder={profileData.data?.data.address}
-                  type="text"
-                  {...updateInput("address")}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="organization">Organization</Label>
-                <Input
-                  id="organization"
-                  type="text"
-                  placeholder={profileData.data?.data.organization}
-                  {...updateInput("organization")}
-                />
-              </div>
-              <div className="grid gap-2">
-                <div className="flex flex-col items-top gap-4 space-x-2">
-                  <Label htmlFor="currency">Currency</Label>
-                  <select
-                    className="w-full cursor-pointer"
-                    {...updateInput("currency")}
-                  >
-                    {profileData.data?.data?.currency ? (
-                      <option value={profileData.data.data.currency}>
-                        {profileData.data.data.currency.toUpperCase()}
-                      </option>
-                    ) : (
-                      <option value="">Select currency...</option>
-                    )}
-                    <option value="eur">EUR</option>
-                    <option value="usd">USD</option>
-                  </select>
+              {!user?.isAdmin && (
+                <div className="grid gap-2">
+                  <Label htmlFor="address">Address</Label>
+                  <Input
+                    id="address"
+                    placeholder={profileData.data?.data.address}
+                    type="text"
+                    {...updateInput("address")}
+                  />
                 </div>
-              </div>
+              )}
+              {!user?.isAdmin && (
+                <div className="grid gap-2">
+                  <Label htmlFor="organization">Organization</Label>
+                  <Input
+                    id="organization"
+                    type="text"
+                    placeholder={profileData.data?.data.organization}
+                    {...updateInput("organization")}
+                  />
+                </div>
+              )}
+              {!user?.isAdmin && (
+                <div className="grid gap-2">
+                  <div className="flex flex-col items-top gap-4 space-x-2">
+                    <Label htmlFor="currency">Currency</Label>
+                    <select
+                      className="w-full cursor-pointer"
+                      {...updateInput("currency")}
+                    >
+                      {profileData.data?.data?.currency ? (
+                        <option value={profileData.data.data.currency}>
+                          {profileData.data.data.currency.toUpperCase()}
+                        </option>
+                      ) : (
+                        <option value="">Select currency...</option>
+                      )}
+                      <option value="eur">EUR</option>
+                      <option value="usd">USD</option>
+                    </select>
+                  </div>
+                </div>
+              )}
             </CardContent>
             <CardFooter className="flex gap-x-10">
               <Button className="w-full" type="submit">

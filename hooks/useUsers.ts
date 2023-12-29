@@ -27,17 +27,19 @@ export const useUsers = () => {
     () => UserService.getAll(debouncedSearch),
     {
       select: ({ data }) =>
-        data.map(
-          (user): ITableItem => ({
-            _id: user._id,
-            editUrl: getAdminUrl(`user/edit/${user._id}`),
-            items: [
-              user.email,
-              user.isAdmin.toString(),
-              user.isActive.toString(),
-            ],
-          })
-        ),
+        data
+          .filter((userData) => user?._id !== userData._id)
+          .map(
+            (user): ITableItem => ({
+              _id: user._id,
+              editUrl: getAdminUrl(`user/edit/${user._id}`),
+              items: [
+                user.email,
+                user.isAdmin.toString(),
+                user.isActive.toString(),
+              ],
+            })
+          ),
 
       onError: (error) => {
         toastError(error, "User list");
