@@ -94,7 +94,7 @@ const Invoice = () => {
                 /> */}
 
                   <p className="text-xl font-extrabold tracking-tight uppercase font-body">
-                    Test invoice
+                    Order confirmation
                   </p>
                 </div>
               </div>
@@ -107,6 +107,7 @@ const Invoice = () => {
                       </p>
                       <p>{userData && userData.email}</p>
                       <p>{userData && userData.address}</p>
+                      <p>{userData && userData.organization}</p>
                       {/* <p>San Javier</p>
                       <p>CA 1234</p> */}
                     </div>

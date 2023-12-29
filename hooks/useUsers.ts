@@ -28,7 +28,7 @@ export const useUsers = () => {
     {
       select: ({ data }) =>
         data
-          .filter((userData) => user?._id !== userData._id)
+          // .filter((userData) => user?._id !== userData._id)
           .map(
             (user): ITableItem => ({
               _id: user._id,
@@ -114,7 +114,7 @@ export const useUsers = () => {
 
       onSuccess: () => {
         toastr.success("Update profile", "update was successful");
-        queryData.refetch();
+        profileData.refetch();
       },
     }
   );

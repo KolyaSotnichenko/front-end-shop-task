@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { useActions } from "@/hooks/useActions";
 import { useCart } from "@/hooks/useCart";
+import { toastr } from "react-redux-toastr";
 
 interface IProductCard {
   id: string;
@@ -97,7 +98,7 @@ const ProductCard: FC<IProductCard> = ({
     <Card className="w-[240px] h-[240px] relative">
       <div className="flex flex-col justify-around">
         <Image
-          className=" flex-1 absolute  w-full h-[40%] top-0"
+          className=" flex-1 absolute w-full h-[50%] top-0"
           src={image}
           width={50}
           height={50}
@@ -107,7 +108,7 @@ const ProductCard: FC<IProductCard> = ({
         <div className="flex flex-col flex-1 absolute bottom-0 w-full">
           <div className="flex items-center justify-between h-12">
             <CardHeader>
-              <CardTitle className="text-lg">{title}</CardTitle>
+              <CardTitle className="text-sm">{title}</CardTitle>
               {/* <CardDescription>{description}</CardDescription> */}
             </CardHeader>
             <CardContent className="pt-6 text-slate-500">
@@ -126,7 +127,10 @@ const ProductCard: FC<IProductCard> = ({
             <Button
               className="w-full"
               variant="outline"
-              onClick={() => handleAddToCart(id, title, 1, price)}
+              onClick={() => {
+                handleAddToCart(id, title, 1, price);
+                toastr.success("Added to the basket!", title);
+              }}
             >
               Buy
             </Button>

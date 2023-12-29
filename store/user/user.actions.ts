@@ -17,7 +17,7 @@ export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
       localStorage.setItem("currency", user.currency);
       return response.data;
     } catch (error) {
-      toastError(error);
+      toastError("Auth error!", "Login and password does not match");
       return thunkApi.rejectWithValue(error);
     }
   }
@@ -39,7 +39,7 @@ export const login = createAsyncThunk<IAuthResponse, IEmailPassword>(
       localStorage.setItem("currency", user.currency);
       return response.data;
     } catch (error) {
-      toastError(error);
+      toastError("Auth error!", "Login and password does not match");
       return thunkApi.rejectWithValue(error);
     }
   }

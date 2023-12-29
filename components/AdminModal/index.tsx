@@ -1,6 +1,7 @@
 import { FC } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -98,9 +99,11 @@ const AdminModal: FC<{ type: "product" | "subscription" }> = ({ type }) => {
                   <Input id="period" type="text" {...createInput("period")} />
                 </div>
               )}
-              <Button className="w-full" type="submit">
-                Create
-              </Button>
+              <DialogClose asChild>
+                <Button className="w-full" type="submit">
+                  Create
+                </Button>
+              </DialogClose>
             </form>
           </DialogDescription>
         </DialogHeader>

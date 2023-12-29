@@ -1,10 +1,9 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import { UserNav } from "../UserNav";
 import { ShoppingBasket, Trash2 } from "lucide-react";
-import { loadStripe } from "@stripe/stripe-js";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,16 +11,17 @@ import {
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
 import { useActions } from "@/hooks/useActions";
-import ConfirmCheckout from "../ConfirmCheckout";
 import { useCart } from "@/hooks/useCart";
+import { useRouter } from "next/navigation";
 
 const UserHeader: FC<{ logo: string; homePage: string }> = ({
   logo,
   homePage,
 }) => {
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const { increaseCountItem, decreaseCountItem, removeItem } = useActions();
   const { items } = useCart();
+
+  const router = useRouter();
 
   let currencyType: string = "";
 
@@ -38,37 +38,6 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
   }, 0);
 
   const counts = items.map((item) => ({ [item.id]: { count: item.count } }));
-
-  const handleOpenModal = () => {
-    setIsOpenModal(!isOpenModal);
-  };
-
-  const redirectToCheckout = async () => {
-    try {
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_TEST_STRIPE_PUBLISHABLE_KEY as string
-      );
-
-      if (!stripe) throw new Error("Stripe failed to initialize.");
-
-      const checkoutResponse = await fetch("/api/checkout_sessions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ items }),
-      });
-
-      const { sessionId } = await checkoutResponse.json();
-      const stripeError = await stripe.redirectToCheckout({ sessionId });
-
-      if (stripeError) {
-        console.error(stripeError);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   return (
     <div className="flex items-center justify-between space-y-2 p-4 border-b mb-4 sticky top-0 z-10 bg-white">
@@ -158,7 +127,7 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
                   "products",
                   JSON.stringify({ items, counts })
                 );
-                setIsOpenModal(true);
+                router.push("/dashboard/confirm");
               }}
               className="h-8 w-full"
             >
@@ -168,11 +137,6 @@ const UserHeader: FC<{ logo: string; homePage: string }> = ({
         </DropdownMenu>
         <UserNav />
       </div>
-      <ConfirmCheckout
-        handleCheckout={redirectToCheckout}
-        isOpen={isOpenModal}
-        handleOpen={handleOpenModal}
-      />
     </div>
   );
 };
