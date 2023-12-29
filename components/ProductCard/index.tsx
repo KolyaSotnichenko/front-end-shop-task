@@ -99,7 +99,7 @@ const ProductCard: FC<IProductCard> = ({
       <div className="flex flex-col justify-around">
         <Image
           className=" flex-1 absolute w-full h-[50%] top-0"
-          src={image}
+          src={`http:/localhost:4200${image}`}
           width={50}
           height={50}
           priority
@@ -111,7 +111,7 @@ const ProductCard: FC<IProductCard> = ({
               <CardTitle className="text-sm">{title}</CardTitle>
               {/* <CardDescription>{description}</CardDescription> */}
             </CardHeader>
-            <CardContent className="pt-6 text-slate-500">
+            <CardContent className="pt-6 text-slate-500 text-xs">
               {currencyType === "usd" ? "USD" : "EUR"} {price}
             </CardContent>
           </div>
